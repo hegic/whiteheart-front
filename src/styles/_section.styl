@@ -1,0 +1,53 @@
+.section
+	display: flex
+	&.header
+		min-height 80px
+		height 80px
+		.section-content
+			margin-bottom 0
+			flex-direction row
+			margin-top 0
+			.tabs
+				@media screen and (max-width: 768px)
+					display none
+				
+	&.footer
+		min-height 80px
+		height 80px
+		.section-content
+			margin-top 0
+		@media screen and (max-width: 768px)
+			margin-top 63px
+			min-height 152px
+			height 152px
+			background: linear-gradient(180deg, #141414 0%, #272727 6.91%);
+		
+.section-content
+	margin: 32px auto 40px auto;
+	max-width: 1180px;
+	display: flex;
+	flex 1
+	flex-direction: column;
+	padding: 0 40px
+	&.row
+		flex-direction: row;
+	@media screen and (min-width: 1024px) and (max-width: 1180px)
+		margin: 24px auto 0 auto;
+		padding: 0 40px
+	@media screen and (min-width: 768px) and (max-width: 1024px)
+		margin: 24px auto 0 auto;
+		padding: 0 20px
+	@media screen and (max-width: 768px)
+		margin: 24px auto 0 auto;
+		padding: 0 20px
+		overflow auto
+.d-f
+	display: flex
+	&.d-f--column
+		flex-direction: column;
+	.f
+		margin: 0 40px
+		&:first-child
+			margin-left: 0
+		&:last-child
+			margin-right: 0
