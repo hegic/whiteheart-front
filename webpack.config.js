@@ -11,11 +11,13 @@ const cssLoader = {
     }
 }
 
+const mode = process.env.NODE_ENV || "production"
+
 module.exports = {
-    // mode:'production',
-    mode:'development',
+    mode,
     resolve:{
       alias: {
+        utils: path.resolve(__dirname,'src', 'utils'),
         styles: path.resolve(__dirname,'src', 'styles'),
         assets: path.resolve(__dirname,'assets'),
       }

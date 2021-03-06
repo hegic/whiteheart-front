@@ -28,6 +28,9 @@ export default {
 		.logo
 		my-tabs
 		.header__button
-			button.button.primary
-				| Connect Wallet
+			button.button.primary(@click="$store.dispatch('connection/toggle')")
+				span(v-if='$store.getters.account')
+					| {{$store.getters.account}}
+				span(v-else)
+					| Connect Wallet
 </template>

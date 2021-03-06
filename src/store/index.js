@@ -1,18 +1,20 @@
 import {createStore} from 'vuex'
+import modules from './modules'
+import { ethers } from 'ethers'
 
-export default createStore({
-  state(){
-    return {
-      items:[1,2,3,4]
-    }
-  },
-  mutations:{
-    _inc(state) {
-      state.items.push(state.items.length + 1)
-    }
+
+const store = createStore({
+  modules,
+  getters:{
+      account: ({connection}) => connection.accounts[0],
   },
   actions:{
-    increment({commit}){ commit('_inc') }
+      init(){
+
+      },
   }
 })
 
+store.dispatch('connection/resetCached')
+window.s = store
+export default store
