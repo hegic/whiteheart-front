@@ -22,7 +22,15 @@ export default {
 	.mobile-menu
 		.close-pop-up.close-pop-up--mobile-menu(@click="$emit('close')")
 		my-tabs(@close-pop-up="$emit('close')")
-		button.button.primary
-			| Connect Wallet
+
+		.disconnect-info(v-if='$store.getters.account')
+			.hash {{$store.getters.account}}
+			.disconnect-info__status Connected
+		button.button.secondary(v-if='$store.getters.account' @click="$store.dispatch('connection/toggle')")
+			span
+				| Disconnect
+		button.button.primary(v-else @click="$store.dispatch('connection/toggle')")
+			span
+				| Connect Wallet
 		//- .header__button
 </template>

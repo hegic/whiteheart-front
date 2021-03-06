@@ -27,10 +27,14 @@ export default {
 		mobile-menu(:class="{open:mobileMenu}" @close="mobileMenu=false")
 		.logo
 		my-tabs
+		.disconnect-info(v-if='$store.getters.account')
+			.hash {{$store.getters.account}}
+			.disconnect-info__status Connected
 		.header__button
-			button.button.primary(@click="$store.dispatch('connection/toggle')")
-				span(v-if='$store.getters.account')
-					| {{$store.getters.account}}
-				span(v-else)
+			button.button.secondary(v-if='$store.getters.account' @click="$store.dispatch('connection/toggle')")
+				span
+					| Disconnect
+			button.button.primary(v-else @click="$store.dispatch('connection/toggle')")
+				span
 					| Connect Wallet
 </template>
