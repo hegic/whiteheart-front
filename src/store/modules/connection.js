@@ -44,6 +44,7 @@ const w3Modal = new Web3Modal({
   }
 });
 
+window.w3Modal = w3Modal
 
 const buildContracts = (provider, signer) => markRaw(Object.fromEntries(
     Object.entries(Contracts).map(([key, {address, abi}]) => [
