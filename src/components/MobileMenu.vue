@@ -27,10 +27,8 @@ export default {
 			.hash {{$store.getters.account}}
 			.disconnect-info__status Connected
 		button.button.secondary(v-if='$store.getters.account' @click="$store.dispatch('connection/toggle')")
-			span
-				| Disconnect
+			| Disconnect
 		button.button.primary(v-else @click="$store.dispatch('connection/toggle')")
-			span
-				| Connect Wallet
+			| Connect Wallet
 		//- .header__button
 </template>

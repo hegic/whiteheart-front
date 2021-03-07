@@ -1,4 +1,5 @@
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import MyTabs from './Tabs.vue'
 import MobileMenu from './MobileMenu.vue'
 
@@ -12,6 +13,12 @@ export default {
 			state: 'wait',
 			mobileMenu: false
 		}
+	},
+	computed:{
+		...mapGetters(['account'])
+	},
+	methods:{
+		...mapActions({connect:"connection/toggle"})
 	},
 	components:{
 		MyTabs,
@@ -27,14 +34,10 @@ export default {
 		mobile-menu(:class="{open:mobileMenu}" @close="mobileMenu=false")
 		.logo
 		my-tabs
-		.disconnect-info(v-if='$store.getters.account')
-			.hash {{$store.getters.account}}
+		.disconnect-info(v-if='account')
+			.hash {{account}}
 			.disconnect-info__status Connected
 		.header__button
-			button.button.secondary(v-if='$store.getters.account' @click="$store.dispatch('connection/toggle')")
-				span
-					| Disconnect
-			button.button.primary(v-else @click="$store.dispatch('connection/toggle')")
-				span
-					| Connect Wallet
+			button.button.secondary(v-if='account' @click="connect") Disconnect
+			button.button.primary(v-else @click="connect") Connect Wallet
 </template>
