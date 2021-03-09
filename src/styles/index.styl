@@ -231,18 +231,26 @@ a
   overflow: auto;
   box-sizing: border-box;
   flex-direction: column;
-  transition: visibility 3s, z-index 3s;
-  &:before
-    transition: opacity 3s;
+  transition: visibility 1s, z-index 1s;
+  &.overlay-mobile-menu
+    &:before
+      content ''
+      opacity 0
+      transition: opacity 1s;
+      position absolute 
+      height 100%
+      width 100%
+      background: linear-gradient(180deg, #141414 0%, #0A0A0A 100%);    
+    &.open
+      &:before 
+        opacity 1
+  &.dyn
     opacity 0
-    content ''
-    position absolute 
-    height 100%
-    width 100%
     background: linear-gradient(180deg, #141414 0%, #0A0A0A 100%);    
+    transition: opacity 1s;
+    &.open
+      opacity 1    
   &.open
-    &:before 
-      opacity 1
     visibility: visible;
     z-index: 200;
   .close-pop-up
@@ -281,6 +289,7 @@ a
     flex-direction: column;
 .loading-box
   margin auto
+  z-index 1
 .loading-box__icon
   width: 200px;
   height: 200px;
@@ -303,7 +312,7 @@ a
     height: 100%;
     box-sizing: border-box;
     
-    transition: all 3s;
+    transition: all 1s;
     
     width 296px
     background: linear-gradient(180deg, #292929 0%, #0A0A0A 100%), rgba(19, 19, 19, 0.96);
