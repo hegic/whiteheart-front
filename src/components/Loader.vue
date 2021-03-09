@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template lang="pug">
-.overlay
+.overlay.dyn
 	.loading-box
 		.loading-box__icon
 			img(:src="require('assets/status-loading.svg').default" alt="loaging")
