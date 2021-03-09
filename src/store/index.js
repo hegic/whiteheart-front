@@ -10,8 +10,8 @@ const store = createStore({
   },
   actions:{
     init({dispatch}){
-      dispatch('tokens/updateBalances')
-      dispatch('staking/update')
+      // dispatch('tokens/updateBalances')
+      // dispatch('staking/update')
     },
   }
 })
