@@ -9,9 +9,10 @@ const store = createStore({
       account: ({connection}) => connection.accounts[0],
   },
   actions:{
-      init(){
-
-      },
+    init({dispatch}){
+      dispatch('tokens/updateBalances')
+      dispatch('staking/update')
+    },
   }
 })
 

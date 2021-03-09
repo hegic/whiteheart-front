@@ -1,10 +1,23 @@
 <script>
+import Web3Input from './general/Web3Input.vue'
+import BigNumber from './general/BigNumber.vue'
 export default {
-	props:['title', 'balance', 'token', 'max','selector'],
-	data(){ 
-		return {
-			value: 1
+	emits:['update:modelValue'	],
+	props:['title', 'token', 'max','selector', 'modelValue'],
+	computed:{
+		balance(){
+			return this.$store.state.tokens.balance[this.token.symbol]
+		},
+		value:{
+			set(value){this.$emit('update:modelValue', value)},
+			get(){return this.modelValue}
 		}
+	},
+	components:{ Web3Input, BigNumber },
+	methods:{
+		setMax(){
+			this.$emit('update:modelValue', this.balance)
+		},
 	}
 }
 </script>
@@ -13,12 +26,9 @@ export default {
 .input-box
 	.input-box__top
 		.input-box-top__text {{title}}
-		.input-box-top__text
-			| Balance: {{balance}}
+		.input-box-top__text Balance: #[big-number(:value='balance' :decimals='token.decimals')]
 	.input-box__bottom
-		input.input(v-model="value")
-		.input-box__max(v-if="max")
-			| MAX
-		.input-box__token(:class="{'width-max':max, 'with-selector':selector}, token")
-			| {{token}}
+		web3-input.input(v-model='value' placeholder="0.0")
+		.input-box__max(v-if="max != undefined" @click="setMax") MAX
+		.input-box__token(:class="{'width-max':max, 'with-selector':selector}, token.symbol") {{token.symbol}}
 </template>

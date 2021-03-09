@@ -1,6 +1,8 @@
 import { ethers } from 'ethers'
 
 const BNRegex = /^(?<neg>-?)(?<whole>\d*)(.(?<fraction>\d*))?$/
+export function toBN(x) { return ethers.BigNumber.from(x) }
+
 
 ethers.BigNumber.prototype.format = function(decimals, precision = 0) {
     const num = this.toString() / 10 ** decimals
@@ -10,10 +12,9 @@ ethers.BigNumber.prototype.format = function(decimals, precision = 0) {
 }
 
 ethers.BigNumber.prototype.e = function(x) {
-  return this.mul(new BN(10).pow(new BN(x)))
+  return this.mul(toBN(10).pow(x))
 }
 
-export function toBN(x) { return ethers.BigNumber.from(x) }
 
 export function parse(input, decimals = 0) {
   if(typeof input !== 'string') throw new Error(`[BN.parse] while converting ${input}, is not a string`)
@@ -31,7 +32,7 @@ export function parse(input, decimals = 0) {
       ? fraction.substring(0, decimals)
       : fraction.padEnd(decimals, 0)
 
-  return toBN(neg + whole).e(decimals).add(toBN(neg + fractionBN))
+  return toBN(neg + whole).e(decimals).add(neg + fractionBN)
 }
 
 

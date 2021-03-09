@@ -23,6 +23,9 @@ export default {
 		}
 	},
 	components:{
+	},
+	mounted(){
+		// this.$store.dispatch('staking/update')
 	}
 }
 </script>
@@ -32,18 +35,18 @@ export default {
 	.section-content
 		.selector-swap-wrap
 			router-link.selector-swap-wrap__elem(
-				v-for="elem in selector" 
-				:to="elem.path"  
+				v-for="elem in selector"
+				:to="elem.path"
 				:class="{selected: $route.path.split('/')[2] == elem.id}, elem.id")
 					.selector-swap-wrap__title {{elem.title}}
-		
-		
+
+
 
 		router-view
 
 
 
-		.my-table-container
+		.my-table-container(v-if='false')
 			.my-table-container__title
 				| History
 			.my-table-box
@@ -55,10 +58,10 @@ export default {
 					tr.my-table__line(v-for="i in 5")
 						td
 							.value.bold.staked Staked
-						td 
+						td
 							.token.bold.ETH
 								| $1350 ETH
-						td 
+						td
 							.hash
 								| 0x48688712bd16c....f3dffd3251336fcb
 			.my-table-box--mobile.text-left
