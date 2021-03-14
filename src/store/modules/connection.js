@@ -15,15 +15,16 @@ const infuraIds = [
 
 const infuraId = "41c02c3d86a442f1a31eb89e3196bf3a"
 // const defaultProvider = markRaw(new ethers.providers.Web3Provider(window.ethereum))
-const defaultProvider = window.ethereum
+const defaultProvider = markRaw(
+  window.ethereum
     ? new ethers.providers.Web3Provider(window.ethereum)
     : ethers.getDefaultProvider("mainnet", {
         infura: infuraId,
         // etherscan: YOUR_ETHERSCAN_API_KEY,
         // alchemy: YOUR_ALCHEMY_API_KEY,
         // pocket: YOUR_POCKET_APPLICATION_KEY
-    });
-
+    })
+ )
 
 
 const w3Modal = new Web3Modal({
