@@ -30,6 +30,7 @@ export default {
 		share(){
 			const sh = this.$store.state.tokens.balance.sWHITE
 			const total = this.$store.state.staking.totalStaked
+			if(!total || total.isZero()) return toBN(0)
 			if(sh && total) return sh.mul(10000).div(total)
 		},
 		estimated(){

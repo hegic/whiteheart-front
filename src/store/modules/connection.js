@@ -6,7 +6,7 @@ import Web3Modal from "web3modal";
 import Authereum from "authereum";
 import UniLogin from "@unilogin/provider";
 import BurnerConnectProvider from "@burner-wallet/burner-connect-provider";
-import Contracts from '../../artifacts/ganache.json'
+import Contracts from '../../artifacts/hest.json'
 
 const infuraIds = [
   "bd143daef40448f48a722c6ead1b07d7",
@@ -14,16 +14,15 @@ const infuraIds = [
 ]
 
 const infuraId = "41c02c3d86a442f1a31eb89e3196bf3a"
-const defaultProvider = markRaw(new ethers.providers.Web3Provider(window.ethereum))
-// const defaultProvider = window.ethereum
-//     ? new ethers.providers.Web3Provider(window.ethereum)
-//     :null
-    // : ethers.getDefaultProvider("mainnet", {
-    //     infura: infuraId,
-    //     // etherscan: YOUR_ETHERSCAN_API_KEY,
-    //     // alchemy: YOUR_ALCHEMY_API_KEY,
-    //     // pocket: YOUR_POCKET_APPLICATION_KEY
-    // });
+// const defaultProvider = markRaw(new ethers.providers.Web3Provider(window.ethereum))
+const defaultProvider = window.ethereum
+    ? new ethers.providers.Web3Provider(window.ethereum)
+    : ethers.getDefaultProvider("mainnet", {
+        infura: infuraId,
+        // etherscan: YOUR_ETHERSCAN_API_KEY,
+        // alchemy: YOUR_ALCHEMY_API_KEY,
+        // pocket: YOUR_POCKET_APPLICATION_KEY
+    });
 
 
 

@@ -22,6 +22,7 @@
     "favicons-webpack-plugin": "^4.2.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
+    "lodash": "^4.17.21",
     "nib": "^1.1.2",
     "normalize.css": "^8.0.1",
     "pug": "^3.0.0",

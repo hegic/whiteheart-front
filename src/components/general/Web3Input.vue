@@ -3,16 +3,16 @@
 	import {toBN} from 'utils/BN'
 	export default {
 		emits:['update:modelValue', 'close'],
-		props:['modelValue', 'digits', 'fallback'],
+		props:['modelValue', 'decimals', 'fallback'],
 		computed:{
 			rgx(){
-				const d = parseInt(this.digits) || 18
+				const d = parseInt(this.decimals) || 18
 				return new RegExp(`^\\d*\\.?\\d{0,${d}}$`)
 			},
 			value:{
 				get(){
 					if(!this.modelValue) return ''
-					const d = parseInt(this.digits) || 18
+					const d = parseInt(this.decimals) || 18
 					const rr = this.modelValue.toString().padStart(d, 0)
 					const s = x => {
 						let f = false
@@ -27,7 +27,7 @@
 					return rr.substring(0, rr.length - d) + (f ? '.' + f : '')
 				},
 				set(val){
-					const d = parseInt(this.digits) || 18
+					const d = parseInt(this.decimals) || 18
 
 					const value = val == '' ? null: utils.parseUnits('0' + val, d)
 					if((this.modelValue != null ^ value != null) ||

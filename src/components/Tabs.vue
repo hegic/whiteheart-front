@@ -1,11 +1,11 @@
 <script>
 export default {
-	data(){ 
+	data(){
 		return {
 			tabs:[
 				{
 					"id":"swap-wrap",
-					"path":"/swap-wrap/swap?buy=WHETH&sell=ETH",
+					"path":"/swap-wrap/wrap?from=ETH&to=WHETH",
 					"title":"Swap / Wrap"
 				},
 				{

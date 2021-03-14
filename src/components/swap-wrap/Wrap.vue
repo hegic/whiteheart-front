@@ -1,6 +1,7 @@
 <script>
 import MyInput from '../Input.vue'
-
+import debounce from 'lodash/debounce'
+import BigNumber from '../general/BigNumber.vue'
 
 export default {
 	props:{
@@ -13,6 +14,9 @@ export default {
 	},
 	data(){
 		return {
+			price: null,
+			rawAmount: null,
+			priceLoading: false,
 			protectCheckbox: true,
 			selector:[
 				{
@@ -28,17 +32,50 @@ export default {
 			]
 		}
 	},
+	watch:{
+		from(){
+			this.rawAmount = null
+		},
+		async rawAmount(){
+			if(this.rawAmount)
+			this.price = await this.$store.dispatch('staking/wrapCost', {
+				amount: this.rawAmount,
+				symbol: this.from
+			})
+		}
+	},
+	computed: {
+		amount:{
+			get(){ return this.rawAmount },
+			set(value) {
+				this.priceLoading = true;
+				this._setRawAmount(value)
+			}
+		},
+	},
+	methods:{
+		_setRawAmount: debounce(function(amount){
+				this.rawAmount = amount
+				this.priceLoading = false
+		}, 1000),
+		wrap(){
+			this.$store.dispatch('staking/wrap',{
+				symbol: this.from,
+				amount: this.amount
+			})
+		}
+	},
 	components:{
-		MyInput
+		MyInput, BigNumber
 	}
 }
 </script>
 
 <template lang="pug">
 .wrap-text
-	| Wrap your ETH or WBTC into WHETH 
+	| Wrap your ETH or WBTC into WHETH
 	br.br--mobile
-	| or WHBTC 
+	| or WHBTC
 	br.br--desk
 	| to be automatically protected from USD losses
 	br
@@ -47,23 +84,21 @@ export default {
 	router-link.selector-buy__elem(v-for="elem in selector" :to="elem.path" :class="{selected: $route.fullPath == elem.path}, `${elem.id}`") {{elem.title}}
 .new-swap
 	.new-swap__box--top
-		.new-swap__title 
-			| New Wrap 
-			span ({{to}})
+		.new-swap__title
+			| New Wrap ({{from}})
 		my-input(
-			title="From (estimated)"
-			:token="from"
-			:max="true"
-			:selector="false"
-			:balance="123.45")
-		.separator-arrow
-		my-input(
-			title="To"
-			:token="to"
-			:max="false"
-			:selector="false"
-			:balance="4")
-		.price-info
+			max title="Amount"
+			v-model="amount"
+			:token="$store.state.tokens[from]"
+		)
+		//- .separator-arrow
+		//- my-input(
+				noBalance
+				title="To"
+				v-model="amount"
+				:token="$store.state.tokens[to]"
+			)
+		//- .price-info
 			.table-box-line__elem
 				.table-box-elem__info
 					| Price
@@ -71,7 +106,7 @@ export default {
 				.table-box-elem__info
 					| 522.66 {{from}} per {{to}}
 	.new-swap__box--bottom
-		label.protect-checkbox
+		//- label.protect-checkbox
 			input.checkbox(type="checkbox")(v-model="protectCheckbox")
 			| Protect my trade from losses
 		.table-box
@@ -81,9 +116,28 @@ export default {
 						| Cost of protection
 				.table-box-line__elem
 					.table-box-elem__info
-						| $20 (0.0328 ETH)
+						| $
+						big-number(
+								:value='price && price.mul($store.state.pricer[from])'
+								:placeholder='0'
+								:decimals='from == "ETH" ? 26 : 16'
+							)
+						|
+						| (
+						big-number(
+								:value='price'
+								:placeholder='0'
+								:decimals='from == "ETH" ? 18 : 8'
+							)
+						| {{from}})
 					.table-box-elem__info
-						| $0.0595 per hour
+						| $
+						big-number(
+								:value='price && price.mul($store.state.pricer[from]).div(336)'
+								:placeholder='0'
+								:decimals='from == "ETH" ? 26 : 16'
+							)
+						|  per hour
 			.table-box__line
 				.table-box-line__elem
 					.table-box-elem__title
@@ -97,31 +151,36 @@ export default {
 						.table-box-elem__title
 							| Price floor
 						.table-box-elem__info.left
-							| You will get paid the difference 
+							| You will get paid the difference
 							br
 							| if ETH falls below this price
 				.table-box-line__elem
 					.table-box-elem__info
-						| $522.66
+						| $
+						big-number(
+							:decimals='8'
+							:value='$store.state.pricer[from]'
+						)
 			.attention-box--overlap(v-if="!protectCheckbox")
 				.attention-box__attention
 					| Attention!
 				.attention-box__text
-					| Your transaction will be made 
+					| Your transaction will be made
 					br
-					| through Uniswap Router. 
-					br
-					span.bold
-						| Your holdings won’t be protected 
-					br
-					| from USD losses. 
+					| through Uniswap Router.
 					br
 					span.bold
-						| Please click above 
-					| to protect 
+						| Your holdings won’t be protected
+					br
+					| from USD losses.
+					br
+					span.bold
+						| Please click above
+					| to protect
 					br
 					| your trade from losses.
 		.new-swap__button
-			button.button.primary
-				| Swap
+			button.button.primary(@click='wrap'
+				:disabled='priceLoading || !rawAmount || !price || rawAmount.lte(0) || rawAmount.add(price).gt($store.state.tokens.balance[from])')
+				| Wrap
 </template>

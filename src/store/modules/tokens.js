@@ -11,6 +11,26 @@ const tokens = {
       symbol: 'sWHITE',
       decimals: 18,
   },
+  WBTC:{
+    name: 'Wrapped Bitcoin',
+    symbol: 'WBTC',
+    decimals: 8,
+  },
+  ETH: {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18,
+  },
+  WHBTC:{
+    name: 'Whiteheart Protected Bitcoin',
+    symbol: 'WHBTC',
+    decimals: 8,
+  },
+  WHETH:{
+    name: 'Whiteheart Protected Ether',
+    symbol: 'WHETH',
+    decimals: 8,
+  },
 }
 
 
@@ -21,6 +41,8 @@ export default {
     balance:{
       WHITE: null,
       sWHITE: null,
+      ETH: null,
+      WBTC: null,
     }
   }},
   mutations:{
@@ -30,12 +52,16 @@ export default {
   },
 
   actions: {
-    async updateBalances({ commit, rootState: { connection: { contracts, accounts: [account] }}}) {
+    async updateBalances({ commit, rootState: { connection: { provider, contracts, accounts: [account] }}}) {
       console.log('update')
       contracts.WHITE.balanceOf(account)
         .then(amount => commit('setBalance',{ token:'WHITE', amount }))
       contracts.Staking.balanceOf(account)
         .then(amount => commit('setBalance',{ token:'sWHITE', amount }))
+      contracts.WBTC.balanceOf(account)
+        .then(amount => commit('setBalance',{ token:'WBTC', amount }))
+      provider.getBalance(account)
+        .then(amount => commit('setBalance',{ token:'ETH', amount }))
     }
   }
 

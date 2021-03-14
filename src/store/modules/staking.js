@@ -41,5 +41,30 @@ export default {
       await Staking.claimProfit().then(x => x.wait())
       await dispatch('update')
     },
+    async wrapCost({rootState}, {symbol, amount}){
+      const asset =
+        symbol == 'ETH'  ? rootState.connection.contracts.whETHv2 :
+        symbol == 'WBTC' ? rootState.connection.contracts.whBTCv2 : null
+      return await asset.wrapCost(amount, 14 * 24 * 3600)
+    },
+    async wrap({dispatch, rootState}, {symbol, amount}) {
+      const { accounts: [account] } = rootState.connection
+      const asset =
+        symbol == 'ETH'  ? rootState.connection.contracts.whETHv2 :
+        symbol == 'WBTC' ? rootState.connection.contracts.whBTCv2 : null
+      const fee = await asset.wrapCost(amount, 14 * 24 * 3600)
+      console.log('test', fee.format(18,5))
+      if(symbol == 'WBTC'){
+        const { WBTC } = rootState.connection.contracts
+        const allowance = await WBTC.allowance(account, asset.address)
+        if(allowance.lt(amount))
+          await WBTC.approve(asset.address, MAX_256).then(x=> x.wait())
+        await asset.wrap(amount, 14 * 24 * 3600, rootState.connection.accounts[0], false, 0)
+        .then(x => x.wait())
+      } else {
+        await asset.wrap(amount, 14 * 24 * 3600, account, false, 0, {value:amount.add(fee)})
+          .then(x => x.wait())
+      }
+    },
   }
 }

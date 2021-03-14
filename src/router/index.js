@@ -10,10 +10,10 @@ import SUnstake from '../components/stake/SUnstake.vue'
 export default createRouter({
 	history: createWebHashHistory(),
 	routes: [
-		{ path: '', redirect: '/swap-wrap/swap?buy=WHETH&sell=ETH' },
+		{ path: '', redirect: '/swap-wrap/wrap?from=ETH&to=WHETH' },
 
-		{ 
-			path: '/swap-wrap', 
+		{
+			path: '/swap-wrap',
 			component: SwapWrap,
 			children:[
 				{
@@ -34,14 +34,14 @@ export default createRouter({
 				},
 			]
 		},
-		{ 
-			path: '/holdings', 
-			component: Holdings,	
+		{
+			path: '/holdings',
+			component: Holdings,
 			props:{currentRouter:'holdings'}
 		},
-		{ 
-			path: '/stake', 
-			component: Stake,	
+		{
+			path: '/stake',
+			component: Stake,
 			children:[
 				{
 					path:"stake",

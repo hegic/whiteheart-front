@@ -28,7 +28,9 @@ body
   flex-direction: column;
   overflow: auto;
   background: #141414;
-  
+  display flex
+  height 100%
+
 
 .logo
   width: 160px;
@@ -41,7 +43,7 @@ body
   @media screen and (max-width: 768px)
     width 120px
     // margin auto
-    
+
 
 .tabs
   display: flex;
@@ -77,7 +79,7 @@ body
     color: #B3B3B3;
     font-size 16px
     @media screen and (max-width: 768px)
-      margin 12px 0 0 0 
+      margin 12px 0 0 0
       text-align center
   @media screen and (max-width: 768px)
     flex-direction: column;
@@ -101,11 +103,11 @@ body
       font-size: 20px;
       line-height: 36px;
       margin-bottom 16px
-    
-      
 
 
-    
+
+
+
 
 a
   text-decoration: none;
@@ -131,8 +133,8 @@ a
       margin-left 0
       &:active
         margin-top 17.5px//16px
-        
-  
+
+
 .info-box__timer-box
   display flex
   flex-direction: column;
@@ -143,7 +145,7 @@ a
     margin-top 28px
   @media screen and (max-width: 768px)
     margin-top 36px
-  
+
 .timer-box__header
   margin 0 auto
   font-size: 20px;
@@ -165,7 +167,7 @@ a
   letter-spacing: 0.12em;
   color: #555555;
   margin-top 4px;
-  
+
 .timer-elem__number
   font-family: Oxygen Mono;
   font-style: normal;
@@ -219,7 +221,7 @@ a
   @media screen and (max-width: 768px)
     margin-top 0
     min-height 245px
-  
+
 .overlay
   position: fixed;
   left 0
@@ -238,19 +240,19 @@ a
       content ''
       opacity 0
       transition: opacity 1s;
-      position absolute 
+      position absolute
       height 100%
       width 100%
-      background: linear-gradient(180deg, #141414 0%, #0A0A0A 100%);    
+      background: linear-gradient(180deg, #141414 0%, #0A0A0A 100%);
     &.open
-      &:before 
+      &:before
         opacity 1
   &.dyn
     opacity 0
-    background: linear-gradient(180deg, #141414 0%, #0A0A0A 100%);    
+    background: linear-gradient(180deg, #141414 0%, #0A0A0A 100%);
     transition: opacity 1s;
     &.open
-      opacity 1    
+      opacity 1
   &.open
     visibility: visible;
     z-index: 200;
@@ -314,9 +316,9 @@ a
     position: absolute;
     height: 100%;
     box-sizing: border-box;
-    
+
     transition: all 1s;
-    
+
     width 296px
     background: linear-gradient(180deg, #292929 0%, #0A0A0A 100%), rgba(19, 19, 19, 0.96);
     padding 84px 20px 32px 20px
@@ -347,7 +349,7 @@ a
   cursor pointer
   @media screen and (min-width: 768px)
     display none
-  
+
 
 .title-desc
   .step
@@ -360,13 +362,13 @@ a
 
 
 br.mobile
-  display none 
+  display none
   @media screen and (max-width: 768px)
     display block
 br.desktop
-  display none 
+  display none
   @media screen and (min-width: 768px)
-    display block   
+    display block
 
 .text-desc
   font-size: 24px;
@@ -479,7 +481,7 @@ br.desktop
       left: 50%;
       top: 16px;
       transform: translate(-50%, 0%);
-      
+
   &.swap
     @media screen and (min-width: 768px)
       width 340px
@@ -523,7 +525,7 @@ br.desktop
   color: #8F8F8F;
   @media screen and (max-width: 768px)
     font-size: 12px;
-    line-height: 22px;  
+    line-height: 22px;
 
 .selector-buy
   background: #2E2E2E;
@@ -545,7 +547,7 @@ br.desktop
   flex-grow: 0;
   margin: 0px 8px;
   padding: 2px 28px;
-  
+
   font-family: Oxygen;
   font-style: normal;
   font-weight: bold;
@@ -553,17 +555,17 @@ br.desktop
   line-height: 36px;
   display: flex;
   color: #FFFFFF;
-  
+
   opacity .5
 
   first-last()
-  
+
   @media screen and (max-width: 768px)
     padding: 2px 12px;
     flex: 1;
     display: block;
     text-align: center;
-    
+
   &.whbtc
     background: linear-gradient(272.29deg, #AA6702 0%, #C17604 100%);
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
@@ -594,11 +596,11 @@ br.desktop
 .new-swap
   overflow: auto;
   width: 336px;
-  margin auto 
+  margin auto
   border-radius: 16px;
   background: linear-gradient(316.54deg, #1F1F1F 24.4%, #262626 75.74%), #1A1A1A;
   @media screen and (max-width: 375px)
-    width 100%  
+    width 100%
   &.margin-top-32
     margin-top 32px
 .new-swap__box--top
@@ -654,7 +656,7 @@ span.bold
     box-sizing: border-box;
 .input-box__top, .input-box__bottom
   display flex
-  justify-content 
+  justify-content
   justify-content: space-between;
 .input-box__top
   margin-bottom 8px
@@ -692,7 +694,7 @@ span.bold
   position relative
   &.with-selector
     cursor pointer
-    padding-right 16px    
+    padding-right 16px
     &:after
       content ''
       position absolute
@@ -808,10 +810,10 @@ span.bold
     transform: translate(0, -50%);
     left 0
     background-image url('assets/link-icon.svg')
-    
+
 .margin-16
-  height: 16px;   
-    
+  height: 16px;
+
 .separator-arrow
   margin 16px auto
   width: 16px;
@@ -841,8 +843,10 @@ span.bold
   border: 1px solid #474747;
   box-sizing: border-box;
   border-radius: 4px;
-  margin-top 20px
   position relative
+  margin-top 20px
+  &:first-child
+    margin-top 0
 .table-box__line
   justify-content: space-between;
   height 64px
@@ -923,7 +927,7 @@ span.bold
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    
+
 
 .attention-box__text
   font-family: Oxygen;
@@ -933,7 +937,7 @@ span.bold
   line-height: 24px;
   text-align: center;
   color: #E4E4E4;
-  
+
 
 
 
@@ -946,7 +950,7 @@ span.bold
   text-align: center;
   color: #E4E4E4;
 .holding-box
-  @media screen and (max-width: 768px)  
+  @media screen and (max-width: 768px)
     background: linear-gradient(316.54deg, #1F1F1F 24.4%, #262626 75.74%), #242424;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.48);
     border-radius: 8px;
@@ -977,15 +981,15 @@ span.bold
   display: flex;
   @media screen and (min-width: 768px)
     display none
-      
-      
+
+
 .br--mobile
   @media screen and (min-width: 768px)
     display none
 .br--desk
   @media screen and (max-width: 768px)
     display none
-  
+
 
 
 .my-table-container
@@ -1005,7 +1009,7 @@ span.bold
   color: #E6E6E6;
   margin-bottom 20px
   text-align: center;
-    
+
 .my-table-box
   overflow auto
   @media screen and (max-width: 768px)
@@ -1100,13 +1104,13 @@ span.bold
     top: 0;
   .button
     margin-top 12px
-    
-    
+
+
 .separator-line
   margin 12px 0
-  height 1px 
+  height 1px
   background #525252;
-  
+
 
 
 
@@ -1130,15 +1134,15 @@ span.bold
     position absolute
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%); 
-    z-index -1   
+    transform: translate(-50%, -50%);
+    z-index -1
   .button-box
-    margin 28px auto 0 auto   
+    margin 28px auto 0 auto
   @media screen and (max-width: 768px)
     margin 0 16px 16px 16px
     background: #1F1F1F;
     box-shadow: 0px 0px 12px #333333, inset 0px 0px 12px rgba(0, 0, 0, 0.4);
-    border-radius: 8px; 
+    border-radius: 8px;
     &:before
       height calc(100% - 60px)
       width calc(100% - 60px)
@@ -1152,7 +1156,7 @@ span.bold
   @media screen and (max-width: 768px)
     font-size: 16px;
     line-height: 24px;
-    
+
 .share-dynamics
   display flex
   justify-content: space-evenly;
@@ -1243,3 +1247,7 @@ span.bold
     transform translate(0, -50%)
     border-radius 100%
     background: #5AEDB8;
+
+
+button:disabled
+  opacity: 20%
