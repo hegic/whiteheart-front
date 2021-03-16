@@ -1,7 +1,7 @@
 <script>
 import waiting from 'assets/status-loading.svg'
-import error from 'assets/status-loading.svg'
-import done from 'assets/status-loading.svg'
+import error from 'assets/status-failed.svg'
+import done from 'assets/status-success.svg'
 
 
 export default {
@@ -32,6 +32,8 @@ export default {
 				v-if='description'
 				v-html='description'
 			)
-		button.button.primary(v-if='actionText' @click='$emit("update:modelValue")')
-			| {{ actionText }}
+
+		.loading-box__description(v-if='actionText')
+			button.button.primary(@click='$emit("update:modelValue")')
+				| {{ actionText }}
 </template>

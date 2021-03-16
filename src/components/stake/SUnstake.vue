@@ -119,7 +119,7 @@ export default {
 			| Your unclaimed staking rewards:
 		.token--big-title
 			.token.USDC
-				big-number(:value="profit" :decimals="6") USDC
+				big-number(:value="profit" :decimals="6" :places='2') USDC
 		.new-swap__button
 			button.button.primary(
 				:disabled="!amount || amount.isZero() || lockedUntil >= Date.now() || amount.gt(balances.sWHITE)"

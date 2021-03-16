@@ -48,5 +48,5 @@ export default {
 my-header
 router-view
 my-footer
-notification(v-model='notificationBind' v-if='false')
+notification(v-model='notificationBind')
 </template>

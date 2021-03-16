@@ -26,10 +26,10 @@ export default {
 </script>
 
 <template lang="pug">
-.input-box
+.input-box(style='margin-top: 20px')
 	.input-box__top
 		.input-box-top__text Period
-		.input-box-top__text {{value}} days
+		.input-box-top__text {{value}} days ({{value * 24}} hours)
 	.input-box__bottom
 		vueform-slider(
 				v-model="value"

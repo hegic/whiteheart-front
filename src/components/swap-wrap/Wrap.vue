@@ -97,24 +97,7 @@ export default {
 			:token="$store.state.tokens[from]"
 		)
 		slider(v-model='period')
-		//- .separator-arrow
-		//- my-input(
-				noBalance
-				title="To"
-				v-model="amount"
-				:token="$store.state.tokens[to]"
-			)
-		//- .price-info
-			.table-box-line__elem
-				.table-box-elem__info
-					| Price
-			.table-box-line__elem
-				.table-box-elem__info
-					| 522.66 {{from}} per {{to}}
 	.new-swap__box--bottom
-		//- label.protect-checkbox
-			input.checkbox(type="checkbox")(v-model="protectCheckbox")
-			| Protect my trade from losses
 		.table-box
 			.table-box__line
 				.table-box-line__elem
@@ -144,9 +127,10 @@ export default {
 								:value='price && price.mul($store.state.pricer[from]).div(336)'
 								placeholder='0'
 								:decimals='from == "ETH" ? 26 : 16'
+								:places='2'
 							)
 						|  per hour
-			.table-box__line
+			//- .table-box__line
 				.table-box-line__elem
 					.table-box-elem__title
 						| Protection duration
