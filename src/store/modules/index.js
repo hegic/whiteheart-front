@@ -3,6 +3,7 @@ import tokens from './tokens'
 import staking from './staking'
 import assets from './assets'
 import pricer from './pricer'
+import notifications from './notifications'
 
 export default {
     connection,
@@ -10,4 +11,5 @@ export default {
     staking,
     assets,
     pricer,
+    notifications,
 }

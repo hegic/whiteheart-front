@@ -84,7 +84,11 @@ export default {
     async unwrap({commit, rootState, dispatch}, {asset, id}) {
       const {connection:{accounts:[account], contracts:{whETHv2, whBTCv2}}} = rootState
       const wh = asset == 'ETH' ? whETHv2 : whBTCv2
-      const receipt = await await wh.unwrap(id).then(x => x.wait())
+
+      const receipt = await dispatch('notifications/process', {
+        description: 'Receiving your ' + asset,
+        txPromise: wh.unwrap(id)
+      },{root:true})
       dispatch('processUnwrap', {
         asset,
         event: receipt.events.find(x => x.event == 'Unwrap')
@@ -107,12 +111,17 @@ export default {
       if(symbol == 'WBTC'){
         const { WBTC } = rootState.connection.contracts
         const allowance = await WBTC.allowance(account, asset.address)
-        if(allowance.lt(amount))
-          await WBTC.approve(asset.address, MAX_256).then(x=> x.wait())
+        if(allowance.lt(amount) || true)
+          await dispatch('notifications/process', {
+            description: '1/2) WBTC Approving',
+            txPromise:asset.wrap(amount, period * 24 * 3600, account, false, 0, { value })
+          },{root:true})
       }
 
-      const receipt = await asset.wrap(amount, period * 24 * 3600, account, false, 0, { value })
-        .then( x => x.wait() )
+      const receipt = await dispatch('notifications/process', {
+        description: symbol == 'ETH' ? 'ETH wrapping': '2/2) WBTC wrapping',
+        txPromise:asset.wrap(amount, period * 24 * 3600, account, false, 0, { value })
+      },{root:true})
 
       await dispatch('process',{
         event: receipt.events.find(x => x.event == 'Wrap'),

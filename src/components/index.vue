@@ -3,7 +3,7 @@ import {mapState, mapActions} from 'vuex'
 
 import MyHeader from '../components/Header.vue'
 import MyFooter from '../components/Footer.vue'
-import MyLoader from '../components/Loader.vue'
+import Notification from '../components/Notification.vue'
 
 
 export default {
@@ -14,7 +14,7 @@ export default {
 			_time: 0,
 			intID: null,
 			state: 'wait',
-			loading:false
+			loading:true
 		}
 	},
 	mounted(){
@@ -23,7 +23,11 @@ export default {
 		clearInterval(this.intID)
 	},
 	computed:{
-		...mapState(['items'])
+		...mapState(['items']),
+		notificationBind:{
+			get(){return this.$store.state.notifications.bind},
+			set(value){this.$store.commit('notifications/set', value)}
+		}
 	},
 	methods: {
 		nextStep(){this.popUpStep = (this.popUpStep + 1) % 5},
@@ -33,7 +37,7 @@ export default {
 	components:{
 		MyHeader,
 		MyFooter,
-		MyLoader,
+		Notification,
 	}
 }
 </script>
@@ -44,5 +48,5 @@ export default {
 my-header
 router-view
 my-footer
-my-loader(:class="{open:loading}")
+notification(v-model='notificationBind')
 </template>

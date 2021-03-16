@@ -122,7 +122,7 @@ export default {
 				big-number(:value="profit" :decimals="6") USDC
 		.new-swap__button
 			button.button.primary(
-				:disabled="!amount || amount == 0 || lockedUntil >= Date.now()"
+				:disabled="!amount || amount.isZero() || lockedUntil >= Date.now() || amount.gt(balances.sWHITE)"
 				@click="withdraw"
 			)
 				//- span(v-if="lockedUntil < Date.now()") Unstake + Claim All Rewards

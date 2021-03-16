@@ -189,9 +189,9 @@ export default {
 							td
 								.token $
 									big-number(
-										:value='i.strike'
-										:decimals='8'
-									)
+											:value='i.strike'
+											:decimals='8'
+										)
 
 							td
 								.token $
@@ -215,29 +215,47 @@ export default {
 								.value.bold.good +
 									big-number(:value='i.optionProfit' :decimals='6') USDC
 				.my-table-box--mobile
-					.my-table__line(v-for="i in 3")
+					.my-table__line(v-for="i in historyAssets")
 						.token.bold.WHITE
 							| 100 WHITE
 						.separator-line
 						.my-table-line__container
 							.my-table-line__elem
 								.my-table-line-elem__title Price Floor
-								.token.bold.ETH $1350
+								.token.bold.ETH $
+									big-number(
+										:value='i.strike'
+										:decimals='8'
+									)
 							.my-table-line__elem
-								.my-table-line-elem__title Current Price
-								.token.bold.ETH $1000
+								.my-table-line-elem__title Exercising Price
+								.token.bold.ETH $
+									big-number(
+											:value='i.closePrice'
+											:decimals='8'
+										)
 						.my-table-line__container.last
 							.my-table-line__elem
 								.my-table-line-elem__title Difference
-								.value.bold.bad -$350
+								.value.bold(:class="{ good: i.closePrice && i.closePrice.sub(i.strike).gt(0), bad: i.closePrice && i.closePrice.sub(i.strike).lt(0)}")
+									| {{i.closePrice && i.closePrice.sub(i.strike).gt(0) ? '+': i.closePrice && i.closePrice.sub(i.strike).lt(0) ? '-' : ''}}$
+									big-number(
+											:value='i.closePrice && i.closePrice.sub(i.strike)'
+											:decimals='8'
+										)
 							.my-table-line__elem
-								.my-table-line-elem__title Duration
-								.value.bold 7D 14H
+								.my-table-line-elem__title Executed at
+								.value.bold {{i.unwrapedAt && i.unwrapedAt.toLocaleString()}}
 						.separator-line
-						.my-table-line-elem__title To be received:
+						.my-table-line-elem__title Received:
 						.value-line.bold
-							.value.bold 10 ETH (
-							.value.bold.good +$350
+							.value.bold(:class='{good: i.profit > 0}') +
+								big-number(
+									v-if='i.profit > 0'
+									:value='i.profit'
+									:decimals='i.decimals + 8'
+								) USDC
+								span(v-else) 0 USDC
 							.value.bold )
 			//- .no-active-contracts(v-else :class="{'mobile-active': mobileActive==0}")
 				.no-active-contracts__text

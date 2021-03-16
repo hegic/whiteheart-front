@@ -97,7 +97,8 @@ export default {
 		.new-swap__title
 			| New Wrap ({{from}})
 		my-input(
-			max title="Amount"
+			:max='x => x.mul(90).div(100)'
+			title="Amount"
 			v-model="amount"
 			:token="$store.state.tokens[from]"
 		)
@@ -196,8 +197,10 @@ export default {
 					br
 					| your trade from losses.
 		.new-swap__button
-			button.button.primary(@click='wrap'
-				:disabled='priceLoading || processing || !amount || !price || amount.lte(0) || amount.add(price).gt($store.state.tokens.balance[from])')
+			button.button.primary(
+					@click='wrap'
+					:disabled='priceLoading || processing || !amount || !price || amount.lte(0) || amount.add(price).gt($store.state.tokens.balance[from])'
+				)
 				span(v-if="priceLoading") Loading costs...
 				span(v-else-if="processing") Process...
 				span(v-else) Wrap

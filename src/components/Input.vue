@@ -3,7 +3,7 @@ import Web3Input from './general/Web3Input.vue'
 import BigNumber from './general/BigNumber.vue'
 import SelectToken from './general/SelectToken.vue'
 export default {
-	emits:['update:modelValue'	],
+	emits:['update:modelValue'],
 	props:['title', 'token', 'max','selector', 'modelValue', 'noBalance'],
 	data(){
 		return {
@@ -22,9 +22,10 @@ export default {
 	components:{ Web3Input, BigNumber, SelectToken },
 	methods:{
 		setMax(){
-			const balance = this.token.symbol == 'ETH'
-				? this.balance.sub("100000000000000000")
-				: this.balance.mul(90).div(100)
+			const balance = (typeof this.max === 'function') ? this.max(this.balance) : this.balance
+			// const balance = this.token.symbol == 'ETH'
+			// 	? this.balance.sub("100000000000000000")
+			// 	: this.balance.mul(90).div(100)
 			this.$emit('update:modelValue', balance)
 		},
 	}

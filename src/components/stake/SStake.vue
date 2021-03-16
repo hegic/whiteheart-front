@@ -106,6 +106,9 @@ export default {
 				| the pool size is still unstable.
 
 		.new-swap__button
-			button.button.primary(@click="stake" :disabled="!amount")
+			button.button.primary(
+					@click="stake"
+					:disabled="!amount || amount.isZero() || amount.gt(balances.WHITE)"
+				)
 				| Stake
 </template>

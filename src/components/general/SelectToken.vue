@@ -1,7 +1,7 @@
 <script>
 
 export default {
-	data(){ 
+	data(){
 		return {
 			tokens:[
 				{
@@ -19,8 +19,7 @@ export default {
 			]
 		}
 	},
-	components:{
-	}
+	components:{}
 }
 </script>
 
