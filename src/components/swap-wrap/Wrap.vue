@@ -102,6 +102,17 @@ export default {
 			v-model="amount"
 			:token="$store.state.tokens[from]"
 		)
+		//.input-box(style="height: 100px;margin:25px 0 0 0;")
+			.input-box__top
+				.input-box-top__text Period:
+			.input-box__bottom
+				Slider(
+					v-model="period"
+					v-bind="_slider_params"
+					style="width:100%;margin:40px 35px 0 30px;"
+				)
+		.table-box-elem__info.left.title-period-slider
+			| Period:
 		Slider(
 				v-model="period"
 				v-bind="_slider_params"
