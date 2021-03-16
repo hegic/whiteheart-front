@@ -2,7 +2,7 @@
 import MyInput from '../Input.vue'
 import debounce from 'lodash/debounce'
 import BigNumber from '../general/BigNumber.vue'
-import Slider from '@vueform/slider'
+import Slider from '../general/Slider.vue'
 
 
 export default {
@@ -17,12 +17,6 @@ export default {
 	data(){
 		return {
 			processing:false,
-			_slider_params:{
-				format: x => x == 1? `1 day`: `${x.toFixed()} days`,
-				min: 14,
-				max: 28,
-				step: 1,
-			},
 			period:14,
 			price: null,
 			amount: null,
@@ -102,10 +96,7 @@ export default {
 			v-model="amount"
 			:token="$store.state.tokens[from]"
 		)
-		Slider(
-				v-model="period"
-				v-bind="_slider_params"
-			)
+		slider(v-model='period')
 		//- .separator-arrow
 		//- my-input(
 				noBalance
