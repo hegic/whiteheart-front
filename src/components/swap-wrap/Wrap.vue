@@ -18,7 +18,7 @@ export default {
 		return {
 			_slider_params:{
 				format: x => x == 1? `1 day`: `${x.toFixed()} days`,
-				min: 1,
+				min: 14,
 				max: 28,
 				step: 1,
 			},
