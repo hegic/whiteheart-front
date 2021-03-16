@@ -6,7 +6,7 @@ import Web3Modal from "web3modal";
 import Authereum from "authereum";
 import UniLogin from "@unilogin/provider";
 import BurnerConnectProvider from "@burner-wallet/burner-connect-provider";
-import Contracts from '../../artifacts/hest.json'
+import Contracts from '../../artifacts/ganache.json'
 
 const infuraIds = [
   "bd143daef40448f48a722c6ead1b07d7",

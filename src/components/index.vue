@@ -1,6 +1,5 @@
 <script>
 import {mapState, mapActions} from 'vuex'
-console.log(require('assets/Whiteheart_One_Pager.pdf'))
 
 import MyHeader from '../components/Header.vue'
 import MyFooter from '../components/Footer.vue'

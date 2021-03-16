@@ -93,4 +93,5 @@ module.exports = {
 		      __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
 	      }),
     ],
+    devtool: "eval-cheap-source-map"
 }

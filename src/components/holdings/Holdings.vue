@@ -30,6 +30,7 @@ export default {
 	.section-content
 		.holding-header
 			| Your hedge contracts
+			|
 			br.br--mobile
 			| (WH token holdings)
 		.holding-box
@@ -153,10 +154,13 @@ export default {
 			.no-active-contracts(v-else :class="{'mobile-active': mobileActive==0}")
 				.no-active-contracts__text
 					| You have no active contracts yet.
+					|
 					br
 					| If you need to protect
+					|
 					br.br--mobile
 					| your funds from any losses
+					|
 					br
 					| buy WHETH or WHBTC
 				.button-box
@@ -190,9 +194,18 @@ export default {
 									)
 
 							td
-								.token $1000
-							td.value.good -$350
-							td 7D 14H
+								.token $
+									big-number(
+											:value='i.closePrice'
+											:decimals='8'
+										)
+							td.value(:class="{ good: i.closePrice && i.closePrice.sub(i.strike).gt(0), bad: i.closePrice && i.closePrice.sub(i.strike).lt(0)}")
+								| {{i.closePrice && i.closePrice.sub(i.strike).gt(0) ? '+': i.closePrice && i.closePrice.sub(i.strike).lt(0) ? '-' : ''}}$
+								big-number(
+										:value='i.closePrice && i.closePrice.sub(i.strike)'
+										:decimals='8'
+									)
+							td {{i.unwrapedAt && i.unwrapedAt.toLocaleString()}}
 							td
 								.value.bold
 									big-number(

@@ -26,16 +26,20 @@ export default {
     push: (state, value) => state.list.push(value),
     unwrap: (state, event) => {
       const holding = state.list.find(x => x.id == event.args.tokenId && x.asset == event.asset)
-      if(holding) holding.optionProfit = event.args.optionProfit
-      else console.log('aaaaa', event, [...state.list])
+      if(holding) {
+        holding.optionProfit = event.args.optionProfit
+        holding.closePrice = event.args.closePrice
+        holding.unwrapedAt = new Date(event.block.timestamp * 1000)
+      } else console.log('no such hedge', event, [...state.list])
     }
   },
   actions:{
     async processUnwrap({commit, rootState, dispatch}, {event, asset}){
+      console.log(event)
       const {connection:{accounts:[account], contracts:{whETHv2, whBTCv2}}} = rootState
-      console.log(123, event, asset)
+      const block = await event.getBlock()
       commit('unwrap', {
-        ...event, asset
+        ...event, asset, block
       })
 
     },
@@ -54,7 +58,6 @@ export default {
         active: underlying.active,
         duration: durationPrettify(event.args.expiration * 1000 - Date.now())
       }
-      console.log(event)
       commit('push', value)
     },
     async load({commit, rootState, dispatch}) {

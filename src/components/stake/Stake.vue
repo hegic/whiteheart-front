@@ -22,11 +22,6 @@ export default {
 			]
 		}
 	},
-	components:{
-	},
-	mounted(){
-		// this.$store.dispatch('staking/update')
-	}
 }
 </script>
 

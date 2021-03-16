@@ -53,7 +53,6 @@ export default {
 
   actions: {
     async updateBalances({ commit, rootState: { connection: { provider, contracts, accounts: [account] }}}) {
-      console.log('update')
       contracts.WHITE.balanceOf(account)
         .then(amount => commit('setBalance',{ token:'WHITE', amount }))
       contracts.Staking.balanceOf(account)

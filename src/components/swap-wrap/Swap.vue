@@ -39,12 +39,16 @@ export default {
 <template lang="pug">
 .swap-text
 	| Buy wrapped WHETH or WHBTC
+	|
 	br
 	| to be automatically protected
+	|
 	br.br--mobile
 	| from USD losses
+	|
 	br
 	| during a fixed period of time
+	|
 	br.br--mobile
 	| with hedge contracts
 .selector-buy
@@ -131,11 +135,14 @@ export default {
 .no-active-contracts
 	.no-active-contracts__text
 		| This functionality is in development
+		|
 		br
 		| and will be added soon.
+		|
 		//- br.br--mobile
 		br
 		| Save your funds from losses
+		|
 		//- br
 		| wrapping your assets
 	.button-box

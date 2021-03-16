@@ -1,5 +1,6 @@
 <script>
 export default {
+	emits:['close-pop-up'],
 	data(){
 		return {
 			tabs:[

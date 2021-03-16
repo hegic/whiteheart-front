@@ -70,10 +70,13 @@ export default {
 <template lang="pug">
 .swap-text
 	| Unstake WHITE, burn sWHITE
+	|
 	br.br--mobile
 	| and withdraw
+	|
 	br.br--desk
 	| your last
+	|
 	br.br--mobile
 	| staking rewards in USDC
 

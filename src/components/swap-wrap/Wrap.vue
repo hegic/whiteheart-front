@@ -73,10 +73,13 @@ export default {
 <template lang="pug">
 .wrap-text
 	| Wrap your ETH or WBTC into WHETH
+	|
 	br.br--mobile
 	| or WHBTC
+	|
 	br.br--desk
 	| to be automatically protected from USD losses
+	|
 	br
 	| during a fixed period of time with hedge contracts
 .selector-buy
@@ -123,6 +126,7 @@ export default {
 						big-number(
 								:value='price && price.mul($store.state.pricer[from])'
 								placeholder='0'
+								:places='2'
 								:decimals='from == "ETH" ? 26 : 16'
 							)
 						|
@@ -132,6 +136,7 @@ export default {
 								placeholder='0'
 								:decimals='from == "ETH" ? 18 : 8'
 							)
+						|
 						| {{from}})
 					.table-box-elem__info
 						| $
@@ -156,7 +161,7 @@ export default {
 						.table-box-elem__info.left
 							| You will get paid the difference
 							br
-							| if ETH falls below this price
+							| if {{from}} falls below this price
 				.table-box-line__elem
 					.table-box-elem__info
 						| $
