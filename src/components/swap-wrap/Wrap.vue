@@ -2,6 +2,8 @@
 import MyInput from '../Input.vue'
 import debounce from 'lodash/debounce'
 import BigNumber from '../general/BigNumber.vue'
+import Slider from '@vueform/slider'
+
 
 export default {
 	props:{
@@ -14,8 +16,15 @@ export default {
 	},
 	data(){
 		return {
+			_slider_params:{
+				format: x => x == 1? `1 day`: `${x.toFixed()} days`,
+				min: 1,
+				max: 28,
+				step: 1,
+			},
+			period:14,
 			price: null,
-			rawAmount: null,
+			amount: null,
 			priceLoading: false,
 			protectCheckbox: true,
 			selector:[
@@ -33,40 +42,30 @@ export default {
 		}
 	},
 	watch:{
-		from(){
-			this.rawAmount = null
-		},
-		async rawAmount(){
-			if(this.rawAmount)
-			this.price = await this.$store.dispatch('staking/wrapCost', {
-				amount: this.rawAmount,
-				symbol: this.from
-			})
-		}
-	},
-	computed: {
-		amount:{
-			get(){ return this.rawAmount },
-			set(value) {
-				this.priceLoading = true;
-				this._setRawAmount(value)
-			}
-		},
+		from(){ this.amount = null },
+		amount(){ this.priceLoading = true; this.updatePrice() },
+		period(){ this.priceLoading = true; this.updatePrice() },
 	},
 	methods:{
-		_setRawAmount: debounce(function(amount){
-				this.rawAmount = amount
-				this.priceLoading = false
-		}, 1000),
+		updatePrice: debounce(async function(){
+				this.price =  !this.amount ? null:
+					await this.$store.dispatch('staking/wrapCost', {
+						amount: this.amount,
+						period: this.period,
+						symbol: this.from
+					})
+					this.priceLoading = false
+			}, 1000),
 		wrap(){
 			this.$store.dispatch('staking/wrap',{
 				symbol: this.from,
-				amount: this.amount
+				amount: this.amount,
+				period: this.period,
 			})
 		}
 	},
 	components:{
-		MyInput, BigNumber
+		MyInput, BigNumber, Slider
 	}
 }
 </script>
@@ -91,6 +90,10 @@ export default {
 			v-model="amount"
 			:token="$store.state.tokens[from]"
 		)
+		Slider(
+				v-model="period"
+				v-bind="_slider_params"
+			)
 		//- .separator-arrow
 		//- my-input(
 				noBalance
@@ -119,14 +122,14 @@ export default {
 						| $
 						big-number(
 								:value='price && price.mul($store.state.pricer[from])'
-								:placeholder='0'
+								placeholder='0'
 								:decimals='from == "ETH" ? 26 : 16'
 							)
 						|
 						| (
 						big-number(
 								:value='price'
-								:placeholder='0'
+								placeholder='0'
 								:decimals='from == "ETH" ? 18 : 8'
 							)
 						| {{from}})
@@ -134,7 +137,7 @@ export default {
 						| $
 						big-number(
 								:value='price && price.mul($store.state.pricer[from]).div(336)'
-								:placeholder='0'
+								placeholder='0'
 								:decimals='from == "ETH" ? 26 : 16'
 							)
 						|  per hour
@@ -144,7 +147,7 @@ export default {
 						| Protection duration
 				.table-box-line__elem
 					.table-box-elem__info
-						| 14 days (336 hours)
+						| {{period}} days ({{period*24}} hours)
 			.table-box__line.big
 				.table-box-line__elem
 					.table-box-elem__title-with-info
@@ -181,6 +184,7 @@ export default {
 					| your trade from losses.
 		.new-swap__button
 			button.button.primary(@click='wrap'
-				:disabled='priceLoading || !rawAmount || !price || rawAmount.lte(0) || rawAmount.add(price).gt($store.state.tokens.balance[from])')
-				| Wrap
+				:disabled='priceLoading || !amount || !price || amount.lte(0) || amount.add(price).gt($store.state.tokens.balance[from])')
+				span(v-if="priceLoading") Loading costs
+				span(v-else) Wrap
 </template>
