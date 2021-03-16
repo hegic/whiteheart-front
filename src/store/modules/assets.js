@@ -1,5 +1,5 @@
 import { MAX_256, toBN } from 'utils/BN'
-
+import router from '../../router'
 function durationPrettify(x) {
   if(x < 0) return 'Expired'
   const d = Math.floor(x / 24 / 3600000)
@@ -30,6 +30,7 @@ export default {
         holding.optionProfit = event.args.optionProfit
         holding.closePrice = event.args.closePrice
         holding.unwrapedAt = new Date(event.block.timestamp * 1000)
+        holding.active = false
       } else console.log('no such hedge', event, [...state.list])
     }
   },
@@ -83,7 +84,41 @@ export default {
     async unwrap({commit, rootState, dispatch}, {asset, id}) {
       const {connection:{accounts:[account], contracts:{whETHv2, whBTCv2}}} = rootState
       const wh = asset == 'ETH' ? whETHv2 : whBTCv2
-      await wh.unwrap(id).then(x => x.wait())
-    }
+      const receipt = await await wh.unwrap(id).then(x => x.wait())
+      dispatch('processUnwrap', {
+        asset,
+        event: receipt.events.find(x => x.event == 'Unwrap')
+      })
+    },
+    async getWrapCost({rootState}, {symbol, amount, period}){
+      const asset =
+        symbol == 'ETH'  ? rootState.connection.contracts.whETHv2 :
+        symbol == 'WBTC' ? rootState.connection.contracts.whBTCv2 : null
+      return await asset.wrapCost(amount, period * 24 * 3600)
+    },
+    async wrap({dispatch, rootState}, {symbol, amount, period}) {
+      const { accounts: [account] } = rootState.connection
+      const asset =
+        symbol == 'ETH'  ? rootState.connection.contracts.whETHv2 :
+        symbol == 'WBTC' ? rootState.connection.contracts.whBTCv2 : null
+      const fee = await asset.wrapCost(amount, period * 24 * 3600)
+      const value = symbol == 'ETH' ? amount.add(fee) : toBN(0)
+
+      if(symbol == 'WBTC'){
+        const { WBTC } = rootState.connection.contracts
+        const allowance = await WBTC.allowance(account, asset.address)
+        if(allowance.lt(amount))
+          await WBTC.approve(asset.address, MAX_256).then(x=> x.wait())
+      }
+
+      const receipt = await asset.wrap(amount, period * 24 * 3600, account, false, 0, { value })
+        .then( x => x.wait() )
+
+      await dispatch('process',{
+        event: receipt.events.find(x => x.event == 'Wrap'),
+        asset: symbol
+      })
+      router.push('/holdings')
+    },
   }
 }

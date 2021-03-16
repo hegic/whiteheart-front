@@ -16,6 +16,7 @@ export default {
 	},
 	data(){
 		return {
+			processing:false,
 			_slider_params:{
 				format: x => x == 1? `1 day`: `${x.toFixed()} days`,
 				min: 14,
@@ -49,19 +50,26 @@ export default {
 	methods:{
 		updatePrice: debounce(async function(){
 				this.price =  !this.amount ? null:
-					await this.$store.dispatch('staking/wrapCost', {
+					await this.$store.dispatch('assets/getWrapCost', {
 						amount: this.amount,
 						period: this.period,
 						symbol: this.from
 					})
 					this.priceLoading = false
 			}, 1000),
-		wrap(){
-			this.$store.dispatch('staking/wrap',{
-				symbol: this.from,
-				amount: this.amount,
-				period: this.period,
-			})
+		async wrap(){
+			this.processing = true
+			try {
+				await this.$store.dispatch('assets/wrap',{
+					symbol: this.from,
+					amount: this.amount,
+					period: this.period,
+				})
+				this.amount = null
+				this.period = 14
+			} finally {
+				this.processing = false
+			}
 		}
 	},
 	components:{
@@ -189,7 +197,8 @@ export default {
 					| your trade from losses.
 		.new-swap__button
 			button.button.primary(@click='wrap'
-				:disabled='priceLoading || !amount || !price || amount.lte(0) || amount.add(price).gt($store.state.tokens.balance[from])')
-				span(v-if="priceLoading") Loading costs
+				:disabled='priceLoading || processing || !amount || !price || amount.lte(0) || amount.add(price).gt($store.state.tokens.balance[from])')
+				span(v-if="priceLoading") Loading costs...
+				span(v-else-if="processing") Process...
 				span(v-else) Wrap
 </template>
