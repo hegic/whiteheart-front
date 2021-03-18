@@ -2,6 +2,7 @@
 import MyTabs from './Tabs.vue'
 
 export default {
+	emits:'close',
 	data(){
 		return {
 			popUp: false,

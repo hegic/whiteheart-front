@@ -173,10 +173,15 @@ export default {
 					| your trade from losses.
 		.new-swap__button
 			button.button.primary(
+					v-if="$store.state.connection.accounts.length > 0 "
 					@click='wrap'
 					:disabled='priceLoading || processing || !amount || !price || amount.lte(0) || amount.add(price).gt($store.state.tokens.balance[from])'
 				)
 				span(v-if="priceLoading") Loading costs...
 				span(v-else-if="processing") Process...
 				span(v-else) Wrap
+			button.button.primary(
+					v-else
+					@click="$store.dispatch('connection/toggle').then(updatePrice)"
+				) Connect Wallet
 </template>

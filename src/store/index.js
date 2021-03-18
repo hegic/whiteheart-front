@@ -11,7 +11,7 @@ const store = createStore({
   actions:{
     init({dispatch}){
       dispatch('tokens/updateBalances')
-      dispatch('staking/update')
+      dispatch('staking/init')
       dispatch('assets/load')
       dispatch('pricer/load')
     },

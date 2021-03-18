@@ -202,7 +202,7 @@ export default {
 							td.value(:class="{ good: i.closePrice && i.closePrice.sub(i.strike).gt(0), bad: i.closePrice && i.closePrice.sub(i.strike).lt(0)}")
 								| {{i.closePrice && i.closePrice.sub(i.strike).gt(0) ? '+': i.closePrice && i.closePrice.sub(i.strike).lt(0) ? '-' : ''}}$
 								big-number(
-										:value='i.closePrice && i.closePrice.sub(i.strike)'
+										:value='i.closePrice && i.closePrice.sub(i.strike).abs()'
 										:decimals='8'
 									)
 							td {{i.unwrapedAt && i.unwrapedAt.toLocaleString()}}
@@ -216,20 +216,23 @@ export default {
 									big-number(:value='i.optionProfit' :decimals='6') USDC
 				.my-table-box--mobile
 					.my-table__line(v-for="i in historyAssets")
-						.token.bold.WHITE
-							| 100 WHITE
+						.token.bold(:class='i.asset')
+							big-number(
+								:value='i.amount'
+								:decimals='i.decimals'
+							) {{i.whAsset}}
 						.separator-line
 						.my-table-line__container
 							.my-table-line__elem
 								.my-table-line-elem__title Price Floor
-								.token.bold.ETH $
+								.token.bold $
 									big-number(
 										:value='i.strike'
 										:decimals='8'
 									)
 							.my-table-line__elem
 								.my-table-line-elem__title Exercising Price
-								.token.bold.ETH $
+								.token.bold $
 									big-number(
 											:value='i.closePrice'
 											:decimals='8'
@@ -240,7 +243,7 @@ export default {
 								.value.bold(:class="{ good: i.closePrice && i.closePrice.sub(i.strike).gt(0), bad: i.closePrice && i.closePrice.sub(i.strike).lt(0)}")
 									| {{i.closePrice && i.closePrice.sub(i.strike).gt(0) ? '+': i.closePrice && i.closePrice.sub(i.strike).lt(0) ? '-' : ''}}$
 									big-number(
-											:value='i.closePrice && i.closePrice.sub(i.strike)'
+											:value='i.closePrice && i.closePrice.sub(i.strike).abs()'
 											:decimals='8'
 										)
 							.my-table-line__elem
@@ -249,6 +252,11 @@ export default {
 						.separator-line
 						.my-table-line-elem__title Received:
 						.value-line.bold
+							.value.bold
+								big-number(
+									:value='i.amount'
+									:decimals='i.decimals'
+								) {{i.whAsset}} (
 							.value.bold(:class='{good: i.profit > 0}') +
 								big-number(
 									v-if='i.profit > 0'

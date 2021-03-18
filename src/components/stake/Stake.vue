@@ -1,5 +1,5 @@
 <script>
-
+import { mapState } from 'vuex'
 export default {
 	data(){
 		return {
@@ -22,6 +22,11 @@ export default {
 			]
 		}
 	},
+	computed:{
+		...mapState({
+			claimHistory: state => state.staking.claimHistory
+		})
+	}
 }
 </script>
 
@@ -41,7 +46,7 @@ export default {
 
 
 
-		//- .my-table-container
+		.my-table-container(v-if='claimHistory.length > 0')
 			.my-table-container__title
 				| History
 			.my-table-box
@@ -50,23 +55,20 @@ export default {
 						th Action
 						th Amount
 						th Transaction Hash
-					tr.my-table__line(v-for="i in 5")
+					tr.my-table__line(v-for="claim in claimHistory")
 						td
-							.value.bold.staked Staked
+							.value.bold.claimed Claimed
 						td
-							.token.bold.ETH
-								| $1350 ETH
-						td
-							.hash
-								| 0x48688712bd16c....f3dffd3251336fcb
+							.token.bold.USDC
+								| {{claim.args.amount.format(6,2)}} USDC
+						td: a.hash(:href="`https://etherscan.io/tx/${claim.transactionHash}`") {{claim.transactionHash}}
 			.my-table-box--mobile.text-left
-					.my-table__line(v-for="i in 3")
-						.token.bold.WHITE
-							| 100 WHITE
+					.my-table__line(v-for="claim in claimHistory")
+						.token.bold.USDC
+							| {{claim.args.amount.format(6,2)}} USDC
 							.action-absolute
-								.value.bold.staked Staked
+								.value.bold.claimed Claimed
 						.margin-16
 						.my-table-line-elem__title Transaction Hash:
-						.hash
-							| 0x48688712bd16c....f3dffd3251336fcb
+						a.hash(:href="`https://etherscan.io/tx/${claim.transactionHash}`") {{claim.transactionHash}}
 </template>
