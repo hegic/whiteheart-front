@@ -27,18 +27,30 @@ export default {
       const {connection:{accounts:[account], contracts:{Staking, WHITE}}} = rootState
       const allowance = await WHITE.allowance(account, Staking.address)
       if(allowance.lt(amount))
-        await WHITE.approve(Staking.address, MAX_256).then(x => x.wait())
-      await Staking.deposit(amount).then(x => x.wait())
+        await dispatch('notifications/process', {
+          description: '1/2) Approve WHITE tokens',
+          txPromise: WHITE.approve(Staking.address, MAX_256)
+        },{root:true})
+      await dispatch('notifications/process', {
+        description: '2/2) Stake WHITE tokens',
+        txPromise: Staking.deposit(amount)
+      },{root:true})
       await dispatch('update')
     },
     async withdraw({dispatch, rootState}, amount) {
       const {connection:{contracts:{Staking}}} = rootState
-      await Staking.withdraw(amount).then(x => x.wait())
+      await dispatch('notifications/process', {
+        description: 'Unstake',
+        txPromise: Staking.withdraw(amount)
+      },{root:true})
       await dispatch('update')
     },
     async claim({dispatch, rootState}, amount) {
       const {connection:{accounts:[account], contracts:{Staking, WHITE}}} = rootState
-      await Staking.claimProfit().then(x => x.wait())
+      await dispatch('notifications/process', {
+        description: 'Claim profit',
+        txPromise: Staking.claimProfit()
+      },{root:true})
       await dispatch('update')
     },
   }
