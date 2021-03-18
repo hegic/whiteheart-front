@@ -41,7 +41,7 @@ export default {
 
 
 
-		.my-table-container(v-if='false')
+		//- .my-table-container
 			.my-table-container__title
 				| History
 			.my-table-box

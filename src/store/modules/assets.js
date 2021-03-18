@@ -36,7 +36,6 @@ export default {
   },
   actions:{
     async processUnwrap({commit, rootState, dispatch}, {event, asset}){
-      console.log(event)
       const {connection:{accounts:[account], contracts:{whETHv2, whBTCv2}}} = rootState
       const block = await event.getBlock()
       commit('unwrap', {

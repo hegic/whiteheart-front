@@ -15,6 +15,14 @@ export default {
     set: (state, value) => state.bind = value
   },
   actions:{
+    error({commit}, {title, description}){
+      commit('set',{
+        title:title || 'Error',
+        description,
+        type: 'error',
+        actionText:"Done"
+      })
+    },
     async process({commit}, {txPromise, description}) {
       commit('set',{
         description,
@@ -26,7 +34,6 @@ export default {
 
         const tx = await txPromise
 
-        console.log(tx)
 
         commit('set',{
           title:`Waiting for network confirmation... (${description})`,

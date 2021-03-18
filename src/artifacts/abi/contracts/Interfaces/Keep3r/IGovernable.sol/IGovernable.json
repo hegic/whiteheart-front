@@ -1,0 +1,41 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "GovernorAccepted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "pendingGovernor",
+        "type": "address"
+      }
+    ],
+    "name": "PendingGovernorSet",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "acceptGovernor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_pendingGovernor",
+        "type": "address"
+      }
+    ],
+    "name": "setPendingGovernor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

@@ -1,0 +1,49 @@
+ABI:
+  PriceProvider: !import ./abi/contracts/Mocks/FakePriceProvider.sol/FakePriceProvider.json
+  ERC20: !import ./abi/contracts/Mocks/MockTokens.sol/FakeUSDC.json
+  Staking: !import ./abi/contracts/Staking/WhiteStakingUSDC.sol/WhiteStakingUSDC.json
+  WHETHAsset: !import ./abi/contracts/WHAssets/WHETHv2.sol/WHETHv2.json
+  WHERC20Asset: !import ./abi/contracts/WHAssets/WHERC20v2.sol/WHERC20v2.json
+
+
+contracts:
+  - name: WBTCPriceProvider
+    address: "0x317b4F46CD25Ce62B7F52e0C7d3B0E60700F4330"
+    abi: PriceProvider
+  - name: ETHPriceProvider
+    address: "0x799c670d26485fA5DfD81D1a384364192ABD4635"
+    abi: PriceProvider
+  - name: WBTC
+    address: "0xD2F2653938Cc9b24A0215451F965B096aC3091B8"
+    abi: ERC20
+  - name: WHITE
+    address: "0x4024e752429dD1A56A1Ce63Fec67FFAF0DfABa6F"
+    abi: ERC20
+  - name: USDC
+    address: "0xD798c99DBE23614a0eE5e7ae3085BD0d1d807F61"
+    abi: ERC20
+  - name: Staking
+    address: "0x41d2d11ac06b26fe8abc89cb3be394e4db717a01"
+    abi: Staking
+  - name: whETHv2
+    address: "0xd1B7b97e9FC51CD38945806Ea53B388A470d2A17"
+    abi: WHETHAsset
+  - name: whBTCv2
+    address: "0xd6638FbFb5aCf33b6d3436899e5f1Aebd414e6f5"
+    abi: WHERC20Asset
+
+  # WETH:
+  #   address: 0x25AF99b922857C37282f578F428CB7f34335B379,
+  #   abi: ERC20
+  # Router:
+  #   address: 0x68b86Cd90A44C805b1cCF4808b29C9c7cf73FDFF,
+  #   abi:
+  # USDCPool:
+  #   address: 0xe93e3B649d4E01e47dd2170CAFEf0651477649Da,
+  #   abi:
+  # whiteOptionsWBTCPricer:
+  #   address: 0xEd447aCB0CEb49d77f317dD6D37CB64da7a7E7F8,
+  #   abi:
+  # whiteOptionsETHPricer:
+  #   address: 0x3F4E941ef5071a1D09C2eB4a24DA1Fc43F76fcfF,
+  #   abi:

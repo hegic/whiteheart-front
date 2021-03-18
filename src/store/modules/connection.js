@@ -6,7 +6,22 @@ import Web3Modal from "web3modal";
 import Authereum from "authereum";
 import UniLogin from "@unilogin/provider";
 import BurnerConnectProvider from "@burner-wallet/burner-connect-provider";
-import Contracts from '../../artifacts/hest.json'
+
+async function getContracts(signer, chainId) {
+  const artifacts = {
+    4: () => import('../../artifacts/rinkeby.yml'),
+    1337: () => import('../../artifacts/ganache.yml'),
+  }[chainId]
+  if(!artifacts) throw new Error(`Network (${chainId}) is  not supported`)
+  const {contracts, ABI} = await artifacts()
+  return Object.fromEntries(
+    contracts.map(({name, address, abi}) => [
+      name,
+      new ethers.Contract(address, ABI[abi], signer),
+    ])
+  )
+}
+
 
 const infuraIds = [
   "bd143daef40448f48a722c6ead1b07d7",
@@ -46,13 +61,6 @@ const w3Modal = new Web3Modal({
 
 window.w3Modal = w3Modal
 
-const buildContracts = (provider, signer) => markRaw(Object.fromEntries(
-    Object.entries(Contracts).map(([key, {address, abi}]) => [
-        key,
-        new ethers.Contract(address, abi, signer)
-    ])
-))
-
 export default {
     namespaced:true,
     state: () => ({
@@ -60,22 +68,23 @@ export default {
       signer: null,
       accounts:[],
       provider: defaultProvider,
-			contracts: buildContracts(defaultProvider),
+			contracts: null,
     }),
     mutations:{
-      connect(state, {rawProvider, accounts, provider, signer}){
+      connect(state, {rawProvider, accounts, provider, signer, contracts}){
           state.rawProvider = rawProvider
           state.accounts = accounts
           state.provider = markRaw(provider)
           state.signer = markRaw(signer)
-					state.contracts = buildContracts(provider, signer)
+					state.contracts = markRaw(contracts)
+
       },
       resetProvider(state){
           state.rawProvider = null
           state.accounts = []
           state.provider = defaultProvider
           state.signer = null
-					state.contracts = buildContracts(defaultProvider)
+					state.contracts = null
       },
     },
     actions:{
@@ -83,7 +92,10 @@ export default {
           const provider = new ethers.providers.Web3Provider(rawProvider)
           const signer = provider.getSigner()
           const accounts = account ? [account] : await provider.listAccounts()
-          ctx.commit('connect', {provider, accounts, signer, rawProvider})
+          const { chainId } = await provider.getNetwork()
+          const contracts = await getContracts(signer, chainId)
+          ctx.commit('connect', {provider, accounts, signer, rawProvider, contracts})
+          // console.log(chainId, contracts)
       },
       async reset({commit, state:{rawProvider}}) {
         w3Modal.clearCachedProvider();
@@ -104,7 +116,7 @@ export default {
               return dispatch('init', null, {root:true})
             })
             .catch(error => {
-              console.error(error)
+              dispatch('notifications/error',{description:error},{root:true})
               dispatch('reset')
               throw error;
             })

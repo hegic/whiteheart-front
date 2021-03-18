@@ -49,15 +49,15 @@ module.exports = {
         },
         {
           test: /\.(png|svg|jpg|gif|pdf)$/,
-          use: [
-            'file-loader',
-          ],
+          loader: 'file-loader',
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/,
-          use: [
-            'file-loader',
-          ],
+          loader: 'file-loader',
+        },
+        {
+          test: /\.ya?ml$/,
+          loader: 'yaml-import-loader'
         },
       ]
     },

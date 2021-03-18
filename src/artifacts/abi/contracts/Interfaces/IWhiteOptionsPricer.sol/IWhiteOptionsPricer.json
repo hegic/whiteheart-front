@@ -1,0 +1,70 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "period",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAmountToWrapFromTotal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "strike",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOptionPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "settlementFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "strikeFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "periodFee",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
