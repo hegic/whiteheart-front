@@ -6,11 +6,15 @@ import Holdings from '../components/holdings/Holdings.vue'
 import Stake from '../components/stake/Stake.vue'
 import SStake from '../components/stake/SStake.vue'
 import SUnstake from '../components/stake/SUnstake.vue'
+import LP from '../components/LP.vue'
 
 export default createRouter({
 	history: createWebHashHistory(),
 	routes: [
-		{ path: '', redirect: '/swap-wrap/wrap?from=ETH&to=WHETH' },
+		{
+			path: '',
+			component: LP },
+		// { path: '', redirect: '/swap-wrap/wrap?from=ETH&to=WHETH' },
 
 		{
 			path: '/swap-wrap',

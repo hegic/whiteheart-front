@@ -30,14 +30,14 @@ export default {
 <template lang="pug">
 .section.header
 	.section-content
-		.icon-mobile-menu(@click="mobileMenu = true")
+		.icon-mobile-menu(@click="mobileMenu = true" v-if="$route.path.split('/')[1] != ''")
 		mobile-menu(:class="{open:mobileMenu}" @close="mobileMenu=false")
-		.logo
+		router-link.logo(to="/")
 		my-tabs
 		.disconnect-info(v-if='account')
 			.hash {{account}}
 			.disconnect-info__status Connected
-		.header__button
+		.header__button(v-if="$route.path.split('/')[1] != ''")
 			button.button.secondary(v-if='account' @click="connect") Disconnect
 			button.button.primary(v-else @click="connect") Connect Wallet
 </template>

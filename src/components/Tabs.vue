@@ -26,6 +26,6 @@ export default {
 </script>
 
 <template lang="pug">
-.tabs
+.tabs(v-if="$route.path.split('/')[1] != ''")
 	router-link.tab(v-for="tab in tabs" :to="tab.path" :class="{selected: $route.path.split('/')[1] == tab.id}" @click="$emit('close-pop-up')") {{tab.title}}
 </template>
