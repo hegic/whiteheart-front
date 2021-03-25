@@ -26,7 +26,7 @@ export default {
     async process({commit}, {txPromise, description}) {
       commit('set',{
         description,
-        title:`Please, confirm your transaction `,
+        title:`Please confirm your transaction `,
         type: 'waiting',
       })
 

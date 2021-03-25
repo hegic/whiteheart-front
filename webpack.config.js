@@ -11,7 +11,7 @@ const cssLoader = {
     }
 }
 
-const mode = process.env.NODE_ENV || "development"
+const mode = process.env.NODE_ENV || "production"
 
 module.exports = {
     mode,

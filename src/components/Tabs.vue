@@ -7,7 +7,7 @@ export default {
 				{
 					"id":"swap-wrap",
 					"path":"/swap-wrap/wrap?from=ETH&to=WHETH",
-					"title":"Swap / Wrap"
+					"title":"Wrap / Swap"
 				},
 				{
 					"id":"holdings",

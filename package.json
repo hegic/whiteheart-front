@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "start": "NODE_ENV=development webpack serve",
-    "build": "webpack"
+    "build": "webpack && echo www.whiteheart.finance > dist/CNAME"
   },
   "keywords": [],
   "author": "",

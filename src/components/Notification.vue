@@ -25,7 +25,7 @@ export default {
 		.loading-box__icon
 			//- iframe(:src="require('assets/status-loading.svg').default" height='200' width='200')
 			object(type='image/svg+xml' :data='objectData')
-				img(:src="objectData" alt="loaging")
+				img(:src="objectData" alt="loading")
 		.loading-box__text(v-if="title")
 			| {{ title }}
 		.loading-box__description(

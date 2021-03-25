@@ -10,13 +10,13 @@ export default {
 					"id":"wrap",
 					"title":"Wrap",
 					"path":"/swap-wrap/wrap?from=ETH&to=WHETH",
-					"text":"Convert your <br class='br--mobile'> ETH or WBTC <br> to protected Whiteheart asset"
+					"text":"Convert your <br class='br--mobile'> ETH or WBTC <br> to protected Whiteheart assets"
 				},
 				{
 					"id":"swap",
 					"title":"Swap",
 					"path":"/swap-wrap/swap?buy=WHETH&sell=ETH",
-					"text":"Buy protected Whiteheart asset <br> for USDC or other cryptocurrency"
+					"text":"Buy protected Whiteheart assets <br> for USDC or other cryptocurrency"
 				},
 			]
 		}

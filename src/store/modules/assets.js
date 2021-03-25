@@ -112,13 +112,13 @@ export default {
         const allowance = await WBTC.allowance(account, asset.address)
         if(allowance.lt(amount) || true)
           await dispatch('notifications/process', {
-            description: '1/2) WBTC Approving',
+            description: '1/2 WBTC Approving',
             txPromise:asset.wrap(amount, period * 24 * 3600, account, false, 0, { value })
           },{root:true})
       }
 
       const receipt = await dispatch('notifications/process', {
-        description: symbol == 'ETH' ? 'ETH wrapping': '2/2) WBTC wrapping',
+        description: symbol == 'ETH' ? 'ETH wrapping': '2/2 WBTC wrapping',
         txPromise:asset.wrap(amount, period * 24 * 3600, account, false, 0, { value })
       },{root:true})
 

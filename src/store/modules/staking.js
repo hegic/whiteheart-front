@@ -35,11 +35,11 @@ export default {
       const allowance = await WHITE.allowance(account, Staking.address)
       if(allowance.lt(amount))
         await dispatch('notifications/process', {
-          description: '1/2) Approve WHITE tokens',
+          description: '1/2 Approve WHITE tokens',
           txPromise: WHITE.approve(Staking.address, MAX_256)
         },{root:true})
       await dispatch('notifications/process', {
-        description: '2/2) Stake WHITE tokens',
+        description: '2/2 Stake WHITE tokens',
         txPromise: Staking.deposit(amount)
       },{root:true})
       await dispatch('update')
