@@ -22,7 +22,7 @@ export default {
 				},
 				{
 					"id": "whbtc",
-					"title": "Buy WHBTC",
+					"title": "Buy WHWBTC",
 					"path": "/swap-wrap/swap?buy=WHBTC&sell=ETH",
 					"text": "Convert your ETH or WBTC <br> to protected Whiteheart asset"
 				},
@@ -38,7 +38,7 @@ export default {
 
 <template lang="pug">
 .swap-text
-	| Buy wrapped WHETH or WHBTC
+	| Buy wrapped WHETH or WHWBTC
 	|
 	br
 	| to be automatically protected
