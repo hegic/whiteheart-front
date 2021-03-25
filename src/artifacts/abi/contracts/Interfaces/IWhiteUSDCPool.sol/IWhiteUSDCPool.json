@@ -116,11 +116,6 @@
         "internalType": "uint256",
         "name": "premium",
         "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "settlementFee",
-        "type": "uint256"
       }
     ],
     "name": "lock",

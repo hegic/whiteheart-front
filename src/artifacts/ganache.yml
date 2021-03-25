@@ -4,34 +4,54 @@ ABI:
   Staking: !import ./abi/contracts/Staking/WhiteStakingUSDC.sol/WhiteStakingUSDC.json
   WHETHAsset: !import ./abi/contracts/WHAssets/WHETHv2.sol/WHETHv2.json
   WHERC20Asset: !import ./abi/contracts/WHAssets/WHERC20v2.sol/WHERC20v2.json
+  Pool: !import ./abi/contracts/WhiteUSDCPool.sol/WhiteUSDCPool.json
+
+# "WBTCPriceProvider" at 0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7
+# "ETHPriceProvider" at 0xD833215cBcc3f914bD1C9ece3EE7BF8B14f841bb
+# "WBTC" at 0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B
+# "WHITE" at 0x5b1869D9A4C187F2EAa108f3062412ecf0526b24
+# "USDC" at 0xCfEB869F69431e42cdB54A4F4f105C19C080A601
+# "Staking" at 0xA94B7f0465E98609391C623d0560C5720a3f2D33
+# "WHETHv2" at 0xFC628dd79137395F3C9744e33b1c5DE554D94882
+# "WHBTCv2" at 0x5f8e26fAcC23FA4cbd87b8d9Dbbd33D5047abDE1
+
+# "ETHPricer" at 0x0E696947A06550DEf604e82C26fd9E493e576337
+# "WBTCPricer" at 0xDb56f2e9369E0D7bD191099125a3f6C370F8ed15
+# "USDCPool" at 0x6eD79Aa1c71FD7BdBC515EfdA3Bd4e26394435cC
+# "UniswapV2Factory" at 0xe982E462b094850F12AF94d21D470e21bE9D0E9C
+# "WHSwapRouter" at 0xb09bCc172050fBd4562da8b229Cf3E45Dc3045A6
+# "WETH" at 0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab
+
 
 
 contracts:
   - name: WBTCPriceProvider
-    address: "0xc34175A79ACca40392bECD22ff10fAeBFE780Ae7"
+    address: "0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7"
     abi: PriceProvider
   - name: ETHPriceProvider
-    address: "0xe97DbD7116D168190F8A6E7beB1092c103c53a12"
+    address: "0xD833215cBcc3f914bD1C9ece3EE7BF8B14f841bb"
     abi: PriceProvider
   - name: WBTC
-    address: "0xF16165f1046f1B3cDB37dA25E835B986E696313A"
+    address: "0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B"
     abi: ERC20
   - name: WHITE
-    address: "0xD13ebb5C39fB00C06122827E1cbD389930C9E0E3"
+    address: "0x5b1869D9A4C187F2EAa108f3062412ecf0526b24"
     abi: ERC20
   - name: USDC
-    address: "0x3acc15dE35aaB8A94B7D2426E27c887541e4DE6c"
+    address: "0xCfEB869F69431e42cdB54A4F4f105C19C080A601"
     abi: ERC20
   - name: Staking
-    address: "0xC5aFE31AE505594B190AC71EA689B58139d1C354"
+    address: "0xA94B7f0465E98609391C623d0560C5720a3f2D33"
     abi: Staking
   - name: whETHv2
-    address: "0x995629b19667Ae71483DC812c1B5a35fCaaAF4B8"
+    address: "0xFC628dd79137395F3C9744e33b1c5DE554D94882"
     abi: WHETHAsset
   - name: whBTCv2
-    address: "0xb592244aa6477eBDDc14475aaeF921cdDcC0170f"
+    address: "0x5f8e26fAcC23FA4cbd87b8d9Dbbd33D5047abDE1"
     abi: WHERC20Asset
-
+  - name: USDCPool
+    address: "0x6eD79Aa1c71FD7BdBC515EfdA3Bd4e26394435cC"
+    abi: Pool
   # WETH:
   #   address: 0x25AF99b922857C37282f578F428CB7f34335B379,
   #   abi: ERC20

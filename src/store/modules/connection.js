@@ -9,6 +9,7 @@ import BurnerConnectProvider from "@burner-wallet/burner-connect-provider";
 
 async function getContracts(signer, chainId) {
   const artifacts = {
+    1: () => import('../../artifacts/mainnet.yml'),
     4: () => import('../../artifacts/rinkeby.yml'),
     1337: () => import('../../artifacts/ganache.yml'),
   }[chainId]

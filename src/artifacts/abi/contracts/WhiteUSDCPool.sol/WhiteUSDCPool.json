@@ -335,6 +335,32 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "hegicFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "hegicFeeRecipient",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -391,12 +417,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "premium",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "settlementFee",
+        "name": "totalFee",
         "type": "uint256"
       }
     ],
@@ -629,6 +650,19 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "value",
+        "type": "address"
+      }
+    ],
+    "name": "setHegicFeeRecipient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "value",
         "type": "uint256"
@@ -842,6 +876,13 @@
         "type": "uint256"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawHegicFee",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   }
