@@ -64,12 +64,14 @@ export default {
 									big-number(
 										:value='i.strike'
 										:decimals='8'
+										:places='2'
 									)
 							td
 								.token $
 									big-number(
 										:decimals='8'
 										:value='$store.state.pricer[i.asset]'
+										:places='2'
 									)
 							td
 								.value(:class='{bad:i.priceDiff && i.priceDiff.isNegative(), good:i.priceDiff > 0 }')
@@ -77,6 +79,7 @@ export default {
 									big-number(
 										:decimals='8'
 										:value='i.priceDiff.abs()'
+										:places='2'
 									)
 							td {{i.duration}}
 							td
@@ -90,6 +93,7 @@ export default {
 										v-if='i.profit > 0'
 										:value='i.profit'
 										:decimals='i.decimals + 8'
+										:places='2'
 									) USDC
 									span(v-else) 0 USDC
 							td.with-button
@@ -110,6 +114,7 @@ export default {
 									big-number(
 										:value='i.strike'
 										:decimals='8'
+										:places='2'
 									)
 							.my-table-line__elem
 								.my-table-line-elem__title Current Price
@@ -117,6 +122,7 @@ export default {
 									big-number(
 										:decimals='8'
 										:value='$store.state.pricer[i.asset]'
+										:places='2'
 									)
 						.my-table-line__container.last
 							.my-table-line__elem
@@ -126,6 +132,7 @@ export default {
 									big-number(
 										:decimals='8'
 										:value='i.priceDiff.abs()'
+										:places='2'
 									)
 							.my-table-line__elem
 								.my-table-line-elem__title Duration
@@ -146,6 +153,7 @@ export default {
 									v-if='i.profit > 0'
 									:value='i.profit'
 									:decimals='i.decimals + 8'
+									:places='2'
 								) USDC
 								span(v-else) 0 USDC
 							.value.bold )
@@ -191,6 +199,7 @@ export default {
 									big-number(
 											:value='i.strike'
 											:decimals='8'
+											:places='2'
 										)
 
 							td
@@ -198,12 +207,14 @@ export default {
 									big-number(
 											:value='i.closePrice'
 											:decimals='8'
+											:places='2'
 										)
 							td.value(:class="{ good: i.closePrice && i.closePrice.sub(i.strike).gt(0), bad: i.closePrice && i.closePrice.sub(i.strike).lt(0)}")
 								| {{i.closePrice && i.closePrice.sub(i.strike).gt(0) ? '+': i.closePrice && i.closePrice.sub(i.strike).lt(0) ? '-' : ''}}$
 								big-number(
 										:value='i.closePrice && i.closePrice.sub(i.strike).abs()'
 										:decimals='8'
+										:places='2'
 									)
 							td {{i.unwrapedAt && i.unwrapedAt.toLocaleString()}}
 							td
@@ -213,7 +224,7 @@ export default {
 										:decimals='i.decimals'
 									) {{i.whAsset}}
 								.value.bold.good +
-									big-number(:value='i.optionProfit' :decimals='6') USDC
+									big-number(:value='i.optionProfit' :decimals='6' :places='2') USDC
 				.my-table-box--mobile
 					.my-table__line(v-for="i in historyAssets")
 						.token.bold(:class='i.asset')
@@ -229,6 +240,7 @@ export default {
 									big-number(
 										:value='i.strike'
 										:decimals='8'
+										:places='2'
 									)
 							.my-table-line__elem
 								.my-table-line-elem__title Exercising Price
@@ -236,6 +248,7 @@ export default {
 									big-number(
 											:value='i.closePrice'
 											:decimals='8'
+											:places='2'
 										)
 						.my-table-line__container.last
 							.my-table-line__elem
@@ -245,6 +258,7 @@ export default {
 									big-number(
 											:value='i.closePrice && i.closePrice.sub(i.strike).abs()'
 											:decimals='8'
+											:places='2'
 										)
 							.my-table-line__elem
 								.my-table-line-elem__title Executed at
@@ -262,6 +276,7 @@ export default {
 									v-if='i.profit > 0'
 									:value='i.profit'
 									:decimals='i.decimals + 8'
+									:places='2'
 								) USDC
 								span(v-else) 0 USDC
 							.value.bold )
