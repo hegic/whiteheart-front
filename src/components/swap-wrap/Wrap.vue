@@ -30,7 +30,7 @@ export default {
 				},
 				{
 					"id":"whbtc",
-					"title":"WBTC → WHBTC",
+					"title":"WBTC → WHWBTC",
 					"path":"/swap-wrap/wrap?from=WBTC&to=WHBTC"
 				}
 			]
@@ -77,7 +77,7 @@ export default {
 	| Wrap your ETH or WBTC into WHETH
 	|
 	br.br--mobile
-	| or WHBTC
+	| or WHWBTC
 	|
 	br.br--desk
 	| to be automatically protected from USD losses
@@ -151,6 +151,7 @@ export default {
 						| $
 						big-number(
 							:decimals='8'
+							:places='2'
 							:value='$store.state.pricer[from]'
 						)
 			.attention-box--overlap(v-if="!protectCheckbox")

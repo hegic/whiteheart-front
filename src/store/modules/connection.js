@@ -96,7 +96,6 @@ export default {
           const { chainId } = await provider.getNetwork()
           const contracts = await getContracts(signer, chainId)
           ctx.commit('connect', {provider, accounts, signer, rawProvider, contracts})
-          // console.log(chainId, contracts)
       },
       async reset({commit, state:{rawProvider}}) {
         w3Modal.clearCachedProvider();

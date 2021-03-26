@@ -35,7 +35,7 @@ export default {
 		router-link.logo(to="/")
 		my-tabs
 		.disconnect-info(v-if='account')
-			.hash {{account}}
+			a.hash(target='_blank' :href='`https://etherscan.io/address/${account}`') {{account}}
 			.disconnect-info__status Connected
 		.header__button(v-if="$route.path.split('/')[1] != ''")
 			button.button.secondary(v-if='account' @click="connect") Disconnect

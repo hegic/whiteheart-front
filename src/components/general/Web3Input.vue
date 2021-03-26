@@ -24,7 +24,6 @@
 						}).reverse().join('')
 					}
 					const f = s(rr.substring(rr.length - d))
-					console.log(rr, f)
 					return (rr.substring(0, rr.length - d) || '0') + (f ? '.' + f : '')
 				},
 				set(val){

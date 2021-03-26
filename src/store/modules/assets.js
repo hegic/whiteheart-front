@@ -110,10 +110,10 @@ export default {
       if(symbol == 'WBTC'){
         const { WBTC } = rootState.connection.contracts
         const allowance = await WBTC.allowance(account, asset.address)
-        if(allowance.lt(amount) || true)
+        if(allowance.lt(amount))
           await dispatch('notifications/process', {
             description: '1/2 WBTC Approving',
-            txPromise:asset.wrap(amount, period * 24 * 3600, account, false, 0, { value })
+            txPromise:WBTC.approve(asset.address, MAX_256)
           },{root:true})
       }
 

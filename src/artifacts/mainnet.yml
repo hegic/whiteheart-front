@@ -26,10 +26,10 @@ contracts:
     address: "0xC0425F0c7f84956d21Ad767abd1892344783BE29"
     abi: Staking
   - name: whETHv2
-    address: "0x570438b7b9C7FF075C768B093271B79152cf1BdC"
+    address: "0x33827D2d2a0f4533AC26083E6eaAe71D417cbBA0"
     abi: WHETHAsset
   - name: whBTCv2
-    address: "0x15088c29CC3106f770fF8F5e5627cB1f62fA160d"
+    address: "0xf19c3FAFB0171484d2301Af1838cB5C6Ea739dC4"
     abi: WHERC20Asset
   - name: USDCPool
     address: "0xda0606037834f4279Dc590434231F1E01C468629"
