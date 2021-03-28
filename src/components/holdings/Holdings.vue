@@ -262,7 +262,7 @@ export default {
 										)
 							.my-table-line__elem
 								.my-table-line-elem__title Executed at
-								.value.bold {{i.unwrapedAt && i.unwrapedAt.toLocaleString()}}
+								.value.bold {{ i.unwrapedAt && i.unwrapedAt.toLocaleString() }}
 						.separator-line
 						.my-table-line-elem__title Received:
 						.value-line.bold

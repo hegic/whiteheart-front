@@ -37,9 +37,9 @@ export default {
 		}
 	},
 	watch:{
-		from(){ this.amount = null },
-		amount(){ this.priceLoading = true; this.updatePrice() },
-		period(){ this.priceLoading = true; this.updatePrice() },
+		from() { this.amount = null },
+		amount() { this.priceLoading = true; this.updatePrice() },
+		period() { this.priceLoading = true; this.updatePrice() },
 	},
 	methods:{
 		updatePrice: debounce(async function(){
@@ -124,7 +124,7 @@ export default {
 					.table-box-elem__info
 						| $
 						big-number(
-								:value='price && price.mul($store.state.pricer[from]).div(336)'
+								:value='price && price.mul($store.state.pricer[from]).div(this.period * 24)'
 								placeholder='0'
 								:decimals='from == "ETH" ? 26 : 16'
 								:places='2'
