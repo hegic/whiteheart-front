@@ -3,6 +3,7 @@ import MyInput from '../Input.vue'
 import debounce from 'lodash/debounce'
 import BigNumber from '../general/BigNumber.vue'
 import Slider from '../general/Slider.vue'
+import toBN from 'utils/BN'
 
 
 export default {
@@ -66,6 +67,27 @@ export default {
 			}
 		}
 	},
+	computed:{
+		available() {
+			const {total, locked} = this.$store.state.pool
+			if(!total) return null
+			const protect = total.mul(2).div(10)
+			const free = total.mul(8).div(10).sub(locked)
+			if(free.lte(0)) return toBN(0)
+			return free.mul(1e8).div(this.$store.state.pricer[this.from])
+		},
+		wrapDisabled() {
+			const available = this.available && this.available.e(this.from == 'ETH' ? 12: 2)
+			return this.priceLoading
+				|| this.processing
+				|| !this.amount
+				|| !this.price
+				|| !available
+				|| this.amount.gt(available)
+				|| this.amount.lte(0)
+				|| this.amount.add(this.price).gt(this.$store.state.tokens.balance[this.from])
+		}
+	},
 	components:{
 		MyInput, BigNumber, Slider
 	}
@@ -97,6 +119,18 @@ export default {
 			:token="$store.state.tokens[from]"
 		)
 		slider(v-model='period')
+		.price-info
+			.table-box-line__elem
+				.table-box-elem__info
+					| Available to wrap:
+			.table-box-line__elem
+				.table-box-elem__info
+					.token.bold(:class='from')
+						big-number(
+								:value='available'
+								:places='2'
+								:decimals='6'
+							) {{from}}
 	.new-swap__box--bottom
 		.table-box
 			.table-box__line
@@ -176,7 +210,7 @@ export default {
 			button.button.primary(
 					v-if="$store.state.connection.accounts.length > 0 "
 					@click='wrap'
-					:disabled='priceLoading || processing || !amount || !price || amount.lte(0) || amount.add(price).gt($store.state.tokens.balance[from])'
+					:disabled='wrapDisabled'
 				)
 				span(v-if="priceLoading") Loading costs...
 				span(v-else-if="processing") Process...

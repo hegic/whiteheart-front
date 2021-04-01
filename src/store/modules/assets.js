@@ -126,6 +126,7 @@ export default {
         event: receipt.events.find(x => x.event == 'Wrap'),
         asset: symbol
       })
+      await dispatch('pool/update',{},{root:true})
       router.push('/holdings')
     },
   }

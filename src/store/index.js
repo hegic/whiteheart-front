@@ -14,6 +14,7 @@ const store = createStore({
       dispatch('staking/init')
       dispatch('assets/load')
       dispatch('pricer/load')
+      dispatch('pool/update')
     },
   }
 })
