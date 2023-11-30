@@ -9,11 +9,11 @@ export default {
 			intID: null,
 			state: 'wait',
 			selector:[
-				{
-					"id":"stake",
-					"title":"Stake",
-					"path":"/stake/stake"
-				},
+				// {
+				// 	"id":"stake",
+				// 	"title":"Stake",
+				// 	"path":"/stake/stake"
+				// },
 				{
 					"id":"unstake",
 					"title":"Unstake",

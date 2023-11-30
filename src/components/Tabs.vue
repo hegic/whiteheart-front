@@ -4,21 +4,21 @@ export default {
 	data(){
 		return {
 			tabs:[
-				{
-					"id":"swap-wrap",
-					"path":"/swap-wrap/wrap?from=ETH&to=WHETH",
-					"title":"Wrap / Swap"
-				},
-				{
-					"id":"holdings",
-					"path":"/holdings",
-					"title":"Holdings"
-				},
-				{
-					"id":"stake",
-					"path":"/stake/stake",
-					"title":"Stake"
-				}
+				// {
+				// 	"id":"swap-wrap",
+				// 	"path":"/swap-wrap/wrap?from=ETH&to=WHETH",
+				// 	"title":"Wrap / Swap"
+				// },
+				// {
+				// 	"id":"holdings",
+				// 	"path":"/holdings",
+				// 	"title":"Holdings"
+				// },
+				// {
+				// 	"id":"stake",
+				// 	"path":"/stake/stake",
+				// 	"title":"Stake"
+				// }
 			]
 		}
 	}

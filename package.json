@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "NODE_ENV=development webpack serve",
-    "build": "webpack && echo www.whiteheart.finance > dist/CNAME"
+    "start": "webpack serve",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
